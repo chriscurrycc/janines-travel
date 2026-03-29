@@ -173,6 +173,10 @@ document.addEventListener('touchend',e=>{
   if(dx>80)window.location.href='../index.html';
 });
 updateDateNav(0);
+let longPressTimer;
+document.addEventListener('touchstart',()=>{longPressTimer=setTimeout(()=>{swiper.allowTouchMove=false},300)},{passive:true});
+document.addEventListener('touchend',()=>{clearTimeout(longPressTimer);setTimeout(()=>{swiper.allowTouchMove=true},100)},{passive:true});
+document.addEventListener('selectionchange',()=>{const sel=window.getSelection();if(sel&&sel.toString().length>0){swiper.allowTouchMove=false}else{swiper.allowTouchMove=true}});
 document.querySelectorAll('.nc[data-map]').forEach(el=>{
   const dur=el.querySelector('.dur');
   if(dur){const row=document.createElement('div');row.className='top-row';dur.parentNode.insertBefore(row,dur);row.appendChild(dur);

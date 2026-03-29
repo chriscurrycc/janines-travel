@@ -291,6 +291,10 @@ document.addEventListener('touchend',e=>{
   if(dx>80)window.location.href='../index.html';
 });
 updateDateNav(0);
+let longPressTimer;
+document.addEventListener('touchstart',()=>{longPressTimer=setTimeout(()=>{swiper.allowTouchMove=false},300)},{passive:true});
+document.addEventListener('touchend',()=>{clearTimeout(longPressTimer);setTimeout(()=>{swiper.allowTouchMove=true},100)},{passive:true});
+document.addEventListener('selectionchange',()=>{const sel=window.getSelection();if(sel&&sel.toString().length>0){swiper.allowTouchMove=false}else{swiper.allowTouchMove=true}});
 // Cover interactive map
 mapboxgl.accessToken='pk.eyJ1IjoiY2hyaXNjdXJyeSIsImEiOiJjbW5iZjV0b2owMTk1MnBvazZicHBhdnJrIn0.9-E-4P0fxd6EEJEYMj3nUA';
 const cmap=new mapboxgl.Map({container:'cover-map',style:'mapbox://styles/mapbox/light-v11',center:[100.515,13.735],zoom:11.4,interactive:false,attributionControl:false,logoPosition:'bottom-right'});
