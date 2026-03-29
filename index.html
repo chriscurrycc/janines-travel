@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.json">
+<title>Janine's Travel</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#5a5550;min-height:100vh;padding-bottom:20px}
+
+/* Header */
+.header{padding:50px 24px 16px;text-align:center}
+.header h1{font-family:'Kalam',cursive;font-size:2em;color:#3a4a30;font-weight:700}
+.header p{font-size:.8em;color:#a0a090;margin-top:4px}
+
+/* Category tabs */
+.cat-tabs{display:flex;justify-content:center;gap:0;margin:0 24px 12px;border-bottom:1px solid #e8e4dc}
+.cat-tab{flex:1;text-align:center;padding:10px 0;font-size:.88em;color:#a0a090;cursor:pointer;position:relative;font-weight:500}
+.cat-tab.active{color:#3a4a30;font-weight:600}
+.cat-tab.active::after{content:'';position:absolute;bottom:0;left:25%;right:25%;height:2.5px;background:#9aab8a;border-radius:2px}
+
+
+/* Trip cards */
+.trips{padding:0 20px 20px;max-width:500px;margin:0 auto}
+.trip-card{background:white;border-radius:16px;overflow:hidden;margin-bottom:16px;box-shadow:0 2px 12px rgba(0,0,0,.04);border:1px solid #e8e4dc;cursor:pointer;transition:transform .2s;text-decoration:none;display:block;color:inherit}
+.trip-card:active{transform:scale(.98)}
+.trip-card.hidden{display:none}
+.trip-cover{height:140px;background:#e8e4dc;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.trip-cover .placeholder{font-size:3em;opacity:.6}
+.trip-cover img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
+.trip-cover .trip-flag{position:absolute;top:12px;left:12px;font-size:1.4em}
+.trip-cover .trip-status{position:absolute;top:12px;right:12px;font-size:.65em;padding:3px 10px;border-radius:10px;font-weight:600}
+.trip-status.journal{background:rgba(154,171,138,.9);color:white}
+.trip-status.guide{background:rgba(184,151,107,.9);color:white}
+.trip-status.shopping{background:rgba(140,160,180,.9);color:white}
+.trip-info{padding:14px 16px}
+.trip-title{font-size:1.05em;font-weight:600;color:#3a4a30;margin-bottom:4px}
+.trip-sub{font-size:.78em;color:#a0a090}
+.trip-meta{display:flex;gap:12px;margin-top:8px;font-size:.72em;color:#b0a898}
+.trip-meta span{display:flex;align-items:center;gap:3px}
+
+/* Empty state */
+.empty{text-align:center;padding:40px 20px;color:#c0b8a8;font-size:.85em;display:none}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Janine's Travel</h1>
+  <p>every trip tells a story</p>
+</div>
+
+<div class="cat-tabs">
+  <div class="cat-tab active" data-cat="all">全部</div>
+  <div class="cat-tab" data-cat="guide">攻略</div>
+  <div class="cat-tab" data-cat="journal">随笔</div>
+  <div class="cat-tab" data-cat="shopping">清单</div>
+</div>
+
+
+<div class="trips" id="trips">
+
+  <!-- Bangkok - Journal -->
+  <a class="trip-card" data-year="2025" data-cat="journal" href="bangkok/index.html">
+    <div class="trip-cover" style="background:#dce8d0">
+      <img src="images/bangkok-cover.png" alt="Bangkok map">
+      <span class="trip-flag">🇹🇭</span>
+      <span class="trip-status journal">随笔</span>
+    </div>
+    <div class="trip-info">
+      <div class="trip-title">曼谷 Bangkok</div>
+      <div class="trip-sub">2025.10.25 - 10.28 · 4天3夜</div>
+      <div class="trip-meta">
+        <span>📍 曾抵达15个地点</span>
+        <span>💵 花销待记录</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Busan - Guide -->
+  <a class="trip-card" data-year="2026" data-cat="guide" href="busan/index.html">
+    <div class="trip-cover" style="background:#d8e4ec">
+      <img src="images/busan-cover.png" alt="Busan map">
+      <span class="trip-flag">🇰🇷</span>
+      <span class="trip-status guide">攻略</span>
+    </div>
+    <div class="trip-info">
+      <div class="trip-title">釜山 Busan</div>
+      <div class="trip-sub">2026.05.02 - 05.04 · 3天2夜</div>
+      <div class="trip-meta">
+        <span>📍 已规划9个地点</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Seoul - Guide -->
+  <a class="trip-card" data-year="2026" data-cat="guide" href="#">
+    <div class="trip-cover" style="background:#e0d8e8">
+      <img src="images/seoul-cover.png" alt="Seoul map">
+      <span class="trip-flag">🇰🇷</span>
+      <span class="trip-status guide">攻略</span>
+    </div>
+    <div class="trip-info">
+      <div class="trip-title">首尔 Seoul</div>
+      <div class="trip-sub">2026.05.04 - 05.07 · 4天3夜</div>
+      <div class="trip-meta">
+        <span>📍 待规划</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Chiang Mai - Guide -->
+  <a class="trip-card" data-year="2026" data-cat="guide" href="chiangmai/index.html">
+    <div class="trip-cover" style="background:#d0dce8">
+      <img src="images/chiangmai-cover.png" alt="Chiang Mai map">
+      <span class="trip-flag">🇹🇭</span>
+      <span class="trip-status guide">攻略</span>
+    </div>
+    <div class="trip-info">
+      <div class="trip-title">清迈 Chiang Mai</div>
+      <div class="trip-sub">2026.05.09 - 05.16 · 8天7夜</div>
+      <div class="trip-meta">
+        <span>📍 已规划18个地点</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- Shopping List -->
+  <a class="trip-card" data-year="2026" data-cat="shopping" href="seoul/shopping.html">
+    <div class="trip-cover" style="background:#e0d8e8">
+      <img src="images/seoul-cover.png" alt="Seoul map" style="opacity:.6">
+      <span class="trip-flag">🇰🇷</span>
+      <span class="trip-status shopping">清单</span>
+    </div>
+    <div class="trip-info">
+      <div class="trip-title">韩国购物清单</div>
+      <div class="trip-sub">首尔 · 免税店 & Olive Young</div>
+      <div class="trip-meta">
+        <span>🛍 9件商品</span>
+        <span>💰 ¥858</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<div class="empty" id="empty">暂无相关旅行记录</div>
+
+<script>
+let curCat='all';
+const tabs=['all','guide','journal','shopping'];
+function filterCards(){
+  let visible=0;
+  document.querySelectorAll('.trip-card').forEach(c=>{
+    const show=curCat==='all'||c.dataset.cat===curCat;
+    c.classList.toggle('hidden',!show);
+    if(show)visible++;
+  });
+  document.getElementById('empty').style.display=visible?'none':'block';
+}
+function setTab(cat){
+  curCat=cat;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));
+  filterCards();
+}
+document.querySelectorAll('.cat-tab').forEach(tab=>{tab.onclick=()=>setTab(tab.dataset.cat)});
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{
+  const dx=e.changedTouches[0].clientX-tx;
+  if(Math.abs(dx)<50)return;
+  const i=tabs.indexOf(curCat);
+  if(dx<0&&i<tabs.length-1)setTab(tabs[i+1]);
+  else if(dx>0&&i>0)setTab(tabs[i-1]);
+});
+</script>
+</body>
+</html>

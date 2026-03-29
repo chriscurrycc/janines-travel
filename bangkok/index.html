@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>🇹🇭 曼谷旅行随笔</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#5a5550;overflow:hidden;height:100vh}
+.swiper{width:100%;height:100vh}
+.swiper-slide{overflow-y:auto;padding:0 0 80px;-webkit-overflow-scrolling:touch;height:100vh}
+.date-nav{position:fixed;top:0;left:0;right:0;background:linear-gradient(180deg,rgba(232,228,220,.95) 0%,rgba(240,236,230,.9) 70%,rgba(245,242,238,.5) 100%);border-bottom:none;z-index:100;backdrop-filter:blur(10px);padding:14px 20px 0}
+.date-nav .dn-header{margin-bottom:16px;padding-left:46px}
+.date-nav .dn-header .dn-day-num{font-family:'Kalam',cursive;font-size:1.6em;font-weight:700;color:#3a4a30;margin-right:16px}
+.date-nav .dn-header .dn-day-sub{font-family:'Kalam',cursive;font-size:1.2em;font-weight:400;color:#9aab8a}
+.date-nav .dn-week{display:flex}
+.date-nav .dn-col{flex:1;cursor:pointer;text-align:center;padding:0 4px 10px;position:relative}
+.date-nav .dn-col .dn-date{font-size:.82em;font-weight:500;color:#a09888}
+.date-nav .dn-col .dn-day{font-size:.6em;color:#b0a898;margin-top:2px}
+.date-nav .dn-col::after{content:'';position:absolute;bottom:0;left:25%;right:25%;height:3px;border-radius:2px;background:transparent;transition:all .2s}
+.date-nav .dn-col.active .dn-date{color:#9aab8a;font-weight:700}
+.date-nav .dn-col.active .dn-day{color:#9aab8a}
+.date-nav .dn-col.active::after{background:#9aab8a}
+.swiper-slide{padding-top:130px}
+.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:12px;padding:8px 16px;z-index:100}
+.nav button{width:28px;height:28px;border-radius:50%;border:1.5px solid #c0b8a8;background:rgba(245,242,238,.9);color:#a09888;font-size:.85em;cursor:pointer;backdrop-filter:blur(8px)}
+.nav button:active{background:#9aab8a;color:white;border-color:#9aab8a}
+.nav button:disabled{border-color:#e0dbd4;color:#e0dbd4}
+.dots{display:flex;gap:5px}.dot{width:6px;height:6px;border-radius:50%;background:#d8d2c8;cursor:pointer}.dot.active{background:#9aab8a;transform:scale(1.3)}
+.cover{height:45vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(135deg,#dce8d0,#c8d8b8,#b8c8a0)}
+.cover h1{font-size:1.8em;color:#3a4a30;margin-bottom:4px}
+.cover p{color:#5a6a50;font-size:1em}
+.cover .sub{font-size:.8em;color:rgba(90,106,80,.6);margin-top:8px}
+.ribbon{background:rgba(255,255,255,.3);color:#3a4a30;padding:6px 24px;border-radius:4px;font-size:.85em;margin-bottom:12px;letter-spacing:1px}
+.day-top{text-align:center;padding:24px 16px 8px}
+.day-ribbon{display:inline-block;background:#9aab8a;color:white;padding:8px 28px;border-radius:4px;font-size:1em;font-weight:600}
+.day-sub{font-size:.8em;color:#a0a090;margin-top:6px}
+.ct{padding:8px 16px 20px;max-width:500px;margin:0 auto}
+.tl{position:relative;padding-left:58px}
+.tl::before{content:'';position:absolute;left:46px;top:0;bottom:0;width:2px;border-left:2px dashed #ccc8be}
+.node{position:relative;margin-bottom:16px}
+.nt{position:absolute;left:-58px;top:18px;width:34px;text-align:right;font-weight:700;color:#9aab8a;font-size:.7em;line-height:1.2}
+.nc{background:white;border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #e8e4dc;position:relative}
+.nc::before{content:'';position:absolute;left:-18px;top:19px;width:8px;height:8px;border-radius:50%;background:#9aab8a;z-index:1}
+.nn-wrap{display:flex;align-items:baseline;gap:6px;margin-bottom:3px;flex-wrap:wrap}
+.nn{font-weight:600;font-size:.92em;color:#4a4a40;display:inline;background:linear-gradient(transparent 40%,rgba(154,171,138,.25) 40%);padding:0 3px;order:1}
+.nn-sub{font-size:.7em;color:#a0a090;letter-spacing:1px;order:2}
+.nd{font-size:.78em;color:#8a8578;line-height:1.6}
+.nd .hl{background:linear-gradient(transparent 60%,#e0ecd0 60%);padding:0 2px}
+.nl{font-size:.76em;color:#9aab8a;text-decoration:none;display:inline-block;margin-top:2px}
+.nc .top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.nc .dur{font-size:.75em;color:#9aab8a;font-weight:600;background:#f0f5ea;padding:2px 8px;border-radius:10px}
+.nc .map-btn{font-size:.68em;color:#9aab8a;background:#f0f5ea;padding:2px 8px;border-radius:8px;cursor:pointer;text-decoration:none}
+.nc .photos{display:flex;gap:4px;margin-top:8px;width:100%}
+.nc .ph{position:relative;border-radius:6px;background:#f0ece4;border:3px solid white;box-shadow:1px 2px 8px rgba(0,0,0,.08);display:flex;flex-direction:column;text-align:center;flex:1;overflow:hidden}
+.nc .ph img{width:100%;flex:1;object-fit:cover;display:block;min-height:60px;border-radius:3px 3px 0 0}
+.nc .ph>div{font-size:.65em;color:#8a8578;padding:3px 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:rgba(255,255,255,.9);flex-shrink:0}
+.nc .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.nc .tags span{font-size:.65em;padding:2px 6px;border-radius:8px;background:#f0f5ea;color:#7a8a6a}
+.nc .rating{font-size:.72em;color:#b8a070;margin-top:4px}
+.nc .tags span:nth-child(3n+1){background:#e8f0e0;color:#5a7a4a}
+.nc .tags span:nth-child(3n+2){background:#f0e8d8;color:#8a7050}
+.nc .tags span:nth-child(3n+3){background:#dce8f0;color:#4a6a80}
+.nc .ph img{cursor:pointer}
+.lightbox{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.9);z-index:200;display:none;align-items:center;justify-content:center;cursor:pointer}
+.lightbox.show{display:flex}
+.lightbox img{max-width:95%;max-height:90vh;object-fit:contain;border-radius:4px}
+.trv{margin-bottom:4px;margin-top:-8px}
+.trv .nc{background:transparent;border:none;box-shadow:none;padding:8px 0;font-size:.75em;color:#b0a898;text-align:left}
+.trv .nc::before{display:none}.trv .nt{display:none}
+.info{background:white;border-radius:12px;padding:14px;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.03);border:1px solid #e8e4dc}
+.info h3{color:#6a7a5a;font-size:.95em;margin-bottom:8px}.info ul{list-style:none}.info li{padding:4px 0;font-size:.85em;border-bottom:1px solid #f0ece4}.info li:last-child{border:none}
+.food{background:white;border-radius:12px;padding:12px;margin-bottom:10px;border-left:3px solid #b8a070;box-shadow:0 1px 4px rgba(0,0,0,.03)}
+.food .fn{font-weight:700;color:#4a4a40;font-size:.9em}.food .fd{font-size:.78em;color:#8a8578;margin-top:3px;line-height:1.5}
+.divider{text-align:center;padding:8px;font-size:.75em;color:#c0b8a8}
+.ft{text-align:center;padding:20px;color:#c0b8a8;font-size:.75em}
+.cover-page{display:flex;flex-direction:column}
+.cover-map-wrap{position:relative;width:100%;height:520px;overflow:hidden;flex-shrink:0}
+#cover-map{width:100%;height:100%}
+.cover-map-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(245,242,238,0) 40%,rgba(245,242,238,.75) 72%,rgba(245,242,238,.97) 88%,rgba(245,242,238,1) 100%);pointer-events:none;z-index:2}
+.cover-head{position:absolute;top:330px;left:0;right:0;z-index:3;text-align:center;padding:0 20px}
+.cover-head h1{font-family:'Kalam',cursive;font-size:1.7em;font-weight:700;color:#3a4a30;margin:0;line-height:1.4}
+.cover-head h1 em{font-family:'Kalam',cursive;font-style:normal;font-size:.65em;font-weight:700;color:#8a9a78;display:block;letter-spacing:3px;margin-top:2px}
+.cover-head p{color:#a0a090;font-size:.72em;margin:5px 0 0;letter-spacing:1px}
+.cover-stats{position:absolute;top:420px;left:0;right:0;z-index:3;display:flex;justify-content:center;gap:8px;color:#b0a898;font-size:.7em}
+.cover-stats span{display:flex;align-items:center;gap:3px}
+.mapboxgl-popup-content{border-radius:10px!important;padding:10px 14px!important;box-shadow:0 4px 16px rgba(0,0,0,.1)!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.mapboxgl-popup-content strong{font-size:.88em;color:#3a4a30;display:block;margin-bottom:2px}
+.mapboxgl-popup-content span{font-size:.75em;color:#a0a090}
+.mapboxgl-popup-close-button{font-size:1.1em;color:#a0a090;padding:4px 8px;border:none;outline:none;background:none}.mapboxgl-popup-close-button:focus{outline:none}
+.mapboxgl-ctrl-bottom-right,.mapboxgl-ctrl-bottom-left{display:none}
+.reflections{padding:0 18px 20px;max-width:500px;margin:-60px auto 0;width:100%;position:relative;z-index:4}
+.ref-title{font-size:.68em;font-weight:600;color:#c0b8a8;letter-spacing:2px;text-transform:uppercase;text-align:center;margin-bottom:14px}
+.ref-card{background:white;border-radius:16px;padding:16px 18px 15px;margin-bottom:12px;border:none;box-shadow:0 3px 14px rgba(0,0,0,.06)}
+.ref-card .ref-label{font-weight:700;font-size:.92em;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ref-card .ref-label svg{flex-shrink:0}
+.ref-card .ref-text{font-size:.78em;color:#8a8278;line-height:1.75}
+.cover-foot{text-align:center;padding:4px 0 4px;font-size:.7em;color:#c0b8a8}
+.back{position:fixed;top:14px;left:14px;width:32px;height:32px;border-radius:50%;background:rgba(245,242,238,.9);border:1px solid #e8e4dc;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200;text-decoration:none;color:#8a8578;font-size:1.1em}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">&larr;</a>
+<div class="date-nav" id="date-nav">
+  <div class="dn-header" id="dn-header"><span class="dn-day-num">Day 1</span><span class="dn-day-sub">Arrival Day</span></div>
+  <div class="dn-week">
+    <div class="dn-col" data-slide="1"><div class="dn-date">10/25</div><div class="dn-day">SAT</div></div>
+    <div class="dn-col" data-slide="2"><div class="dn-date">10/26</div><div class="dn-day">SUN</div></div>
+    <div class="dn-col" data-slide="3"><div class="dn-date">10/27</div><div class="dn-day">MON</div></div>
+    <div class="dn-col" data-slide="4"><div class="dn-date">10/28</div><div class="dn-day">TUE</div></div>
+  </div>
+</div>
+<div class="swiper" id="s"><div class="swiper-wrapper">
+
+<!-- Cover -->
+<div class="swiper-slide" style="padding-top:0">
+  <div class="cover-page">
+    <div class="cover-map-wrap">
+      <div id="cover-map"></div>
+      <div class="cover-head">
+        <h1>泰国曼谷<em>Thailand Bangkok</em></h1>
+        <p>2025.10.25 — 10.28</p>
+      </div>
+      <div class="cover-stats">
+        <span>4天3夜</span><span>·</span><span>15个地点</span><span>·</span><span>2个人</span>
+      </div>
+    </div>
+
+    <div class="reflections">
+
+      <div class="ref-card">
+        <div class="ref-label" style="color:#c97b50">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#c97b50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+          泰餐
+        </div>
+        <div class="ref-text">在泰国每天吃得都很开心。想念冬阴功汤、船面、蟹肉咖喱饭、papaya、pai tai、石榴汁和泰奶，还有各式各样小吃，酸酸辣辣甜甜，回国之后却没办法复刻那里的味道了。</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label" style="color:#7a9a6a">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7a9a6a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="17.5" r="2.5"/><circle cx="18.5" cy="17.5" r="2.5"/><path d="M15 6a1 1 0 0 0 0 2h2.5l1.5 5H5l1-5h4"/><path d="M3 17.5h-1V9l2-4h8l2 4h2l3 5"/></svg>
+          出行
+        </div>
+        <div class="ref-text">托这次酒店的福，离地铁站很远，导致我们出行方式只能限制在打车和摩的之间，让我享受了很多次在街上自在驰骋。虽然危险但是在国内真的很难感受到这种速度和激情了，沿路看看街景，吹吹热带的风，回想起来还是很快乐。</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label" style="color:#6a88b0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6a88b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          本地人
+        </div>
+        <div class="ref-text">当地人没有我想象的那么危险，但街上的流浪汉确实还蛮多的。泰国贫富差距很大，这里的人工作和生活都慢悠悠的，恰恰是这样让我在泰国更容易感受到区别于其他城市的度假感。</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label" style="color:#b08a6a">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#b08a6a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          小费
+        </div>
+        <div class="ref-text">因为欧美人很多，所以存在小费文化，这次客房清洁扔了两次20铢小费在桌子上都被拿走了。</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label" style="color:#9a7aaa">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9a7aaa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          语言
+        </div>
+        <div class="ref-text">泰国的英文普及率还是不如日本和巴厘岛，但是比比划划还是可以交流。</div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-label" style="color:#6aaa95">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6aaa95" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          消费
+        </div>
+        <div class="ref-text">泰国的消费还是差异很大的，比如一些居民区十块钱就可以吃一顿好吃的面，但是游客区就需要翻倍。</div>
+      </div>
+      <div class="cover-foot">🐾 by 周大福</div>
+    </div>
+  </div>
+</div>
+
+<!-- Day 1 -->
+<div class="swiper-slide">
+  <div class="ct"><div class="tl">
+
+    <div class="node"><div class="nt">02:15</div><div class="nc" data-map="https://maps.google.com/maps?q=Suvarnabhumi+Airport"><span class="dur">02:15 - 06:00</span><div class="nn-wrap"><div class="nn">北京大兴机场 → 素万那普国际机场</div><div class="nn-sub">สนามบินสุวรรณภูมิ</div></div><div class="nd">去之前在去哪儿预约了接机服务，会有小管家添加微信提供特别详细的落地指引，适合第一次来泰国的人，安全省心而且跟Grab价格差不多。</div><div class="tags"><span>#红眼航班</span><span>#接机服务</span></div><div class="photos v2"><div class="ph"><img src="photos/1-红眼班机.jpg"><div>红眼班机 · 06:55</div></div><div class="ph"><img src="photos/1-去哪儿阶接机.jpg"><div>去哪儿接机 · 07:09</div></div></div></div></div>
+
+    <div class="node"><div class="nt">06:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Luxx+Hotel+Bangkok"><span class="dur">06:00 - 08:00</span><div class="nn-wrap"><div class="nn">丽仕精品酒店</div><div class="nn-sub">The Luxx Boutique Hotel</div></div><div class="nd">紧邻伦披尼公园和朱拉隆功大学，酒店在一条主街的小巷子里，很安静。整体装修风格偏自然木质调，很独特，二楼还有一家泳池Bar（但不吵）。但是缺点是<span class="hl">房间有股霉味，灯光很昏暗</span>，下次来不会选择这里了。</div><div class="tags"><span>#酒店</span></div><div class="rating">推荐指数 ⭐ 3/5</div><div class="photos h2"><div class="ph"><img src="photos/2-Luxx Hotel.jpg"><div>Luxx Hotel · 09:31</div></div></div></div></div>
+
+    <div class="node"><div class="nt">08:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Soi+Prachum+Market+Bangkok"><span class="dur">08:00 - 09:30</span><div class="nn-wrap"><div class="nn">Soi Prachum Market</div><div class="nn-sub">ตลาดซอยประชุม</div></div><div class="nd">当地人的local morning market，有很多本地小吃和水果。如果下了早班机不知道去哪儿又刚好在这附近住推荐来试试。强烈推荐<span class="hl">船面（80铢）和泰国小油条（10铢）</span>，也可以尝尝椰子冻（竟然是咸甜口的），但<span class="hl">绝对不要买榴莲（260铢），狠狠踩雷了</span>。（这里和最后一天泰餐课逛的市场是同一个，也算首尾呼应，圆满了）</div><div class="tags"><span>#船面</span><span>#踩雷榴莲</span><span>#local早市</span></div><div class="rating">推荐指数 ⭐ 5/5</div><div class="photos v2"><div class="ph"><img src="photos/3-船面.jpg"><div>船面 · 08:50</div></div><div class="ph"><img src="photos/3-认准船面.jpg"><div>认准这家船面</div></div></div></div></div>
+
+    <div class="node"><div class="nt">09:30</div><div class="nc" data-map="https://maps.app.goo.gl/HgW1uTDeaqBdtVx86"><span class="dur">09:30 - 10:30</span><div class="nn-wrap"><div class="nn">Hidden Agenda</div><div class="nn-sub">ฮิดเดน อเจนด้า</div></div><div class="nd">按摩店附近偶遇的一家小酒馆（说他是酒馆但我其实是白天来的），只点了一份泰式早餐（280铢），白粥配肉粒和凉菜，意外的还不错，但也完全没必要单独来</div><div class="rating">推荐指数 ⭐ 2/5</div><div class="photos h2"><div class="ph"><img src="photos/4-泰式早餐.jpg"><div>泰式早餐 · 09:56</div></div></div></div></div>
+
+    <div class="node"><div class="nt">10:40</div><div class="nc" data-map="https://maps.app.goo.gl/XgWH4Ygt964s43v59"><span class="dur">10:40 - 13:40 · 天堂放松 165min</span><div class="nn-wrap"><div class="nn">Let's Relax Spa</div><div class="nn-sub">เล็ทส์ รีแล็กซ์ สปา</div></div><div class="nd">404元/人，这里相比起国内性价比还是蛮高的，但是在泰国本地并不算便宜。环境和服务是非常好的，按完还有芒果糯米饭和茶水。阿姨的手法偏柔和挂，不像印象中的泰式按摩做各种高难度动作，<span class="hl">给我按睡着了</span>。但缺点是<span class="hl">房间太冷，趴下按背的时候脖子很受罪</span>。综合来说不推荐。</div><div class="tags"><span>#泰式SPA</span></div><div class="rating">推荐指数 ⭐ 2/5</div><div class="photos h2"><div class="ph"><img src="photos/5-芒果糯米饭.jpg"><div>芒果糯米饭 · 13:33</div></div></div></div></div>
+
+    <div class="node"><div class="nt">16:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Khlong+Bang+Luang+Market+Bangkok"><span class="dur">16:00 - 16:30</span><div class="nn-wrap"><div class="nn">Khlong Bang Luang Market</div><div class="nn-sub">ตลาดชุมชนคลองบางหลวง</div></div><div class="nd">没玩明白，打车到了目的地之后莫名其妙上了游船（还没收费），一路上不知道目的地是哪儿地在河上飘（<span class="hl">当时一度心里很慌</span>），大概开了十几分钟之后就到目的地了，一路上吹风很舒服，还能看到水门大佛。下船之后收了一人10铢，如果这就是船票那简直太便宜了。但好像我们到了市场就被遣返了，至今不知道这个水上市场到底啥样。</div><div class="tags"><span>#迷之体验</span><span>#水门大佛</span></div><div class="rating">推荐指数 ⭐ 2/5</div><div class="photos v2" style="gap:4px"><div class="ph"><img src="photos/6-水门大佛.jpg"><div>水门大佛 · 16:20</div></div><div class="ph"><img src="photos/6-游船.jpg"><div>游船 · 16:24</div></div><div class="ph"><img src="photos/6-游船之后.jpg"><div>游船之后</div></div></div></div></div>
+
+    <div class="node"><div class="nt">17:00</div><div class="nc" data-map="https://maps.app.goo.gl/Ca2aSWT8L9DZLnQo7"><span class="dur">17:00 - 19:00</span><div class="nn-wrap"><div class="nn">朱拉大学夜市</div><div class="nn-sub">ตลาดนัดจุฬา</div></div><div class="nd"><span class="hl">随便找一个想吃的都不踩雷，泰国就是这么好吃</span> 😋</div><div class="tags"><span>#夜市</span><span>#美食天堂</span></div><div class="rating">推荐指数 ⭐ 5/5</div><div class="photos v2" style="gap:4px"><div class="ph"><img src="photos/7-烤面包.jpg"><div>烤面包 · 18:18</div></div><div class="ph"><img src="photos/7-蛋卷.jpg"><div>蛋卷 · 18:43</div></div><div class="ph"><img src="photos/7-watermelon smoothie.jpg"><div>西瓜冰沙 · 18:58</div></div></div></div></div>
+
+  </div></div>
+</div>
+
+<!-- Day 2 -->
+<div class="swiper-slide">
+  <div class="ct"><div class="tl">
+
+    <div class="node"><div class="nt">10:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Chatuchak+Weekend+Market"><span class="dur">10:00 - 13:00</span><div class="nn-wrap"><div class="nn">乍都乍周末市集</div><div class="nn-sub">ตลาดนัดจตุจักร</div></div><div class="nd">早上逛市集会比较凉爽，逛累了随处都有吃饭和按摩的地方。最惊喜的是<span class="hl">市场有宠物区（Dog Country Cafe），300铢可以和狗狗玩</span>。小红书上有个很出名的古着店DD mall就在市集附近，下次有空可以一起逛逛</div><div class="tags"><span>#周末市集</span><span>#狗咖</span></div><div class="rating">推荐指数 ⭐ 5/5</div><div class="photos v2"><div class="ph"><img src="photos/8-乍都乍周末市场.jpg"><div>乍都乍周末市场</div></div><div class="ph"><img src="photos/8-Dog Country.jpg"><div>Dog Country Cafe</div></div></div></div></div>
+
+    <div class="node"><div class="nt">14:00</div><div class="nc" data-map="https://maps.app.goo.gl/P66iHeew7MvHCoES6"><span class="dur">14:00 - 22:00</span><div class="nn-wrap"><div class="nn">BLACKPINK 演唱会</div><div class="nn-sub">สนามราชมังคลากีฬาสถาน</div></div><div class="nd">可以提前去现场取票，虽然到得早但不无聊，有快闪店和拍照区</div><div class="tags"><span>#BLACKPINK</span></div><div class="photos h2"><div class="ph"><img src="photos/卡片9 取票.jpg"><div>取票</div></div><div class="ph"><img src="photos/9-Blackpink.jpg"><div>BLACKPINK</div></div></div></div></div>
+
+  </div></div>
+</div>
+
+<!-- Day 3 -->
+<div class="swiper-slide">
+  <div class="ct"><div class="tl">
+
+    <div class="node"><div class="nt">10:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Lumphini+Park+Bangkok"><span class="dur">10:00 - 11:00</span><div class="nn-wrap"><div class="nn">伦披尼公园</div><div class="nn-sub">สวนลุมพินี</div></div><div class="nd">伦披尼公园距离酒店步行4分钟，可以看到<span class="hl">本土生物水巨蜥</span>，生态环境挺好的，也很出片。离得近的尽管去享受下20分钟<span class="hl">公园效应</span></div><div class="rating">推荐指数 ⭐ 4/5</div><div class="photos h2"><div class="ph"><img src="photos/10-伦披尼公园.jpg"><div>伦披尼公园</div></div><div class="ph"><img src="photos/10-水巨蜥.jpg"><div>水巨蜥</div></div></div></div></div>
+
+    <div class="node"><div class="nt">11:00</div><div class="nc" data-map="https://maps.google.com/maps?q=朱拉50巷泰国厨房"><span class="dur">11:00 - 12:00</span><div class="nn-wrap"><div class="nn">朱拉50巷泰国厨房</div><div class="nn-sub">ครัวไทย ซอย 50 จุฬา</div></div><div class="nd">人均180泰铢，小红书爆火店铺，但是真的很好吃，<span class="hl">非常幸运去的时候没有排队，等吃完出来就全是人了</span></div><div class="rating">推荐指数 ⭐ 4/5</div><div class="photos h2"><div class="ph"><img src="photos/11-蟹肉粉.jpg"><div>蟹肉粉</div></div><div class="ph"><img src="photos/11-冬阴功汤.jpg"><div>冬阴功汤</div></div></div></div></div>
+
+    <div class="node"><div class="nt">12:00</div><div class="nc" data-map="https://maps.google.com/maps?q=GalileOasis+Art+Space+Bangkok"><span class="dur">12:00 - 15:30</span><div class="nn-wrap"><div class="nn">GalileOasis Art Space</div><div class="nn-sub">กาลิเลโอเอซิส</div></div><div class="nd">藏在小巷子里的非常chill的一个文艺区，有咖啡有文创，大约半小时就能逛完，<span class="hl">还很适合数字游民办公</span>，景色很棒。去的话直接定位到piccolo vicolo咖啡（曼谷有两家别跑错了）</div><div class="rating">推荐指数 ⭐ 4/5</div><div class="photos h2"><div class="ph"><img src="photos/12-文艺小店.jpg"><div>文艺小店</div></div><div class="ph"><img src="photos/12-piccolo vicolo cafe.jpg"><div>piccolo vicolo cafe</div></div></div></div></div>
+
+    <div class="node"><div class="nt">15:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Song+Wat+Road+Bangkok"><span class="dur">15:00 - 19:00</span><div class="nn-wrap"><div class="nn">嵩越路 Song Wat</div><div class="nn-sub">ถนนทรงวาด</div></div><div class="nd">非常适合citywalk的街区，有很多工艺品、古着、咖啡和甜品店，走走逛逛很有意思，<span class="hl">涂鸦墙也很出片</span>。但毕竟是游客区，整体价格还是很高的。旁边就是唐人街（但我没去）</div><div class="rating">推荐指数 ⭐ 5/5</div><div class="photos v2"><div class="ph"><img src="photos/13-对镜拍.jpg"><div>对镜拍</div></div><div class="ph"><img src="photos/13-SAAN.jpg"><div>SAAN</div></div></div></div></div>
+
+    <div class="node"><div class="nt">19:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Rajadamnern+Boxing+Stadium"><span class="dur">19:00 - 22:00</span><div class="nn-wrap"><div class="nn">拉查达慕泰拳</div><div class="nn-sub">สนามมวยราชดำเนิน</div></div><div class="nd">一等座，看得很清楚，初次体验还是很有趣的</div><div class="rating">推荐指数 ⭐ 5/5</div><div class="photos h2"><div class="ph"><img src="photos/14-泰拳.jpg"><div>泰拳</div></div><div class="ph"><img src="photos/14-黑白混合打.jpg"><div>黑白混合打</div></div></div></div></div>
+
+  </div></div>
+</div>
+
+<!-- Day 4 -->
+<div class="swiper-slide">
+  <div class="ct"><div class="tl">
+
+    <div class="node"><div class="nt">08:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Sompong+Thai+Cooking+School"><span class="dur">08:30 - 12:00</span><div class="nn-wrap"><div class="nn">颂蓬泰式烹饪课程</div><div class="nn-sub">Sompong Thai Cooking School</div></div><div class="nd">上午场的主要行程是逛市场，老师带队介绍食材，还会买下一些特色小吃让我们品尝。做泰餐部分主打体验，不要指望学到什么，<span class="hl">会用锅铲就行了</span>，但是每道菜都蛮好吃的。这里有各个国家的人，在这里认识了一个美国妹妹。</div><div class="tags"><span>#烹饪课</span><span>#体验</span></div><div class="rating">推荐指数 ⭐ 5/5</div><div class="photos v2"><div class="ph"><img src="photos/15-做泰餐.jpg"><div>做泰餐</div></div><div class="ph"><img src="photos/15-成品展示.jpg"><div>成品展示</div></div></div></div></div>
+
+    <div class="node"><div class="nt">12:00</div><div class="nc" data-map="https://maps.google.com/maps?q=centralwOrld+Bangkok"><span class="dur">12:00 - 14:00</span><div class="nn-wrap"><div class="nn">Central World</div><div class="nn-sub">เซ็นทรัลเวิลด์</div></div><div class="nd">可以去买买本地品牌，<span class="hl">puff鞋蛮好穿的</span>，部分消费可以退税。</div><div class="rating">推荐指数 ⭐ 3/5</div><div class="photos h2"><div class="ph"><img src="photos/16-central world.jpg"><div>Central World</div></div></div></div></div>
+
+    <div class="node"><div class="nt">14:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Big+C+Supercenter+Ratchadamri+Bangkok"><span class="dur">14:00 - 16:00</span><div class="nn-wrap"><div class="nn">BigC</div><div class="nn-sub">บิ๊กซี ซูเปอร์เซ็นเตอร์</div></div><div class="nd">BigC在Central World商场对面的大超市，可以购买特产和礼物，类似国内的物美，<span class="hl">非常大非常好逛，建议多留点时间</span>，满2000泰铢金额可以退税</div><div class="tags"><span>#购物</span><span>#退税</span></div><div class="rating">推荐指数 ⭐ 5/5</div></div></div>
+
+  </div></div>
+</div>
+
+<!-- Footer -->
+<div class="swiper-slide">
+  <div class="ct" style="display:flex;align-items:center;justify-content:center;min-height:50vh">
+    <div class="ft">🐾 by 周大福 · 曼谷旅行随笔</div>
+  </div>
+</div>
+
+</div></div>
+
+<div class="nav">
+  <button id="pv" onclick="go(-1)">‹</button>
+  <div class="dots" id="ds"></div>
+  <button id="nx" onclick="go(1)">›</button>
+</div>
+<div class="lightbox" id="lb" onclick="this.classList.remove('show')"><img id="lb-img"></div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.2.0/mapbox-gl.js"></script>
+<script>
+const D=document.getElementById('ds'),slides=document.querySelectorAll('.swiper-slide'),T=slides.length;
+const dnCols=document.querySelectorAll('.date-nav .dn-col[data-slide]');
+for(let i=0;i<T;i++){const d=document.createElement('div');d.className='dot'+(i?'':' active');d.onclick=()=>swiper.slideTo(i);D.appendChild(d)}
+const dayHeaders={1:['Day 1','Arrival Day'],2:['Day 2','Concert'],3:['Day 3','City Walk'],4:['Day 4','Cooking and Shopping']};
+const dnHeader=document.getElementById('dn-header');
+const dateNav=document.getElementById('date-nav');
+function updateDateNav(idx){
+  dnCols.forEach(c=>{c.classList.toggle('active',parseInt(c.dataset.slide)===idx)});
+  const h=dayHeaders[idx];
+  if(h){dateNav.style.display='block';dnHeader.style.display='block';dnHeader.querySelector('.dn-day-num').textContent=h[0];dnHeader.querySelector('.dn-day-sub').textContent=h[1]}
+  else{dateNav.style.display='none'}
+}
+dnCols.forEach(c=>{c.onclick=()=>swiper.slideTo(parseInt(c.dataset.slide))});
+const swiper=new Swiper('#s',{speed:350,threshold:20,touchStartPreventDefault:false,keyboard:{enabled:true},touchAngle:35,
+  on:{slideChange:function(){
+    const c=this.activeIndex;
+    D.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===c));
+    document.getElementById('pv').disabled=c===0;
+    document.getElementById('nx').disabled=c===T-1;
+    slides[c].scrollTop=0;
+    updateDateNav(c);
+  }}
+});
+function go(d){d>0?swiper.slideNext():swiper.slidePrev()}
+let stx=0;
+document.addEventListener('touchstart',e=>{stx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(swiper.activeIndex!==0)return;
+  const dx=e.changedTouches[0].clientX-stx;
+  if(dx>80)window.location.href='../index.html';
+});
+updateDateNav(0);
+// Cover interactive map
+mapboxgl.accessToken='pk.eyJ1IjoiY2hyaXNjdXJyeSIsImEiOiJjbW5iZjV0b2owMTk1MnBvazZicHBhdnJrIn0.9-E-4P0fxd6EEJEYMj3nUA';
+const cmap=new mapboxgl.Map({container:'cover-map',style:'mapbox://styles/mapbox/light-v11',center:[100.515,13.735],zoom:11.4,interactive:false,attributionControl:false,logoPosition:'bottom-right'});
+const placeData={type:'FeatureCollection',features:[
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5252,13.7262]},properties:{n:'丽仕精品酒店',t:'LUXX Silom',c:'#7a9a6a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5229,13.7251]},properties:{n:'Soi Prachum 早市',t:'ตลาดซอยประชุม',c:'#7a9a6a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5210,13.7235]},properties:{n:'Hidden Agenda',t:'ฮิดเดน อเจนด้า',c:'#7a9a6a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5197,13.7261]},properties:{n:"Let's Relax Spa",t:'เล็ทส์ รีแล็กซ์ สปา · Surawong',c:'#7a9a6a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.4635,13.7309]},properties:{n:'水上市场',t:'ตลาดชุมชนคลองบางหลวง',c:'#7a9a6a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5313,13.7357]},properties:{n:'朱拉大学夜市',t:'ตลาดนัดจุฬา',c:'#7a9a6a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5504,13.7998]},properties:{n:'乍都乍市集',t:'ตลาดนัดจตุจักร',c:'#b8976b'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.6223,13.7553]},properties:{n:'BLACKPINK Concert',t:'สนามราชมังคลากีฬาสถาน',c:'#b8976b'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5418,13.7285]},properties:{n:'伦披尼公园',t:'สวนลุมพินี',c:'#6a8a9a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5340,13.7330]},properties:{n:'朱拉50巷泰国厨房',t:'ครัวไทย',c:'#6a8a9a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5265,13.7513]},properties:{n:'GalileOasis',t:'กาลิเลโอเอซิส',c:'#6a8a9a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5087,13.7375]},properties:{n:'嵩越路',t:'ถนนสงวาด',c:'#6a8a9a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5085,13.7611]},properties:{n:'泰拳',t:'ราชดำเนินมวยไทย',c:'#6a8a9a'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5242,13.7241]},properties:{n:'烹饪课',t:'Sompong Thai Cooking School',c:'#9a7b6b'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5392,13.7466]},properties:{n:'Central World',t:'เซ็นทรัลเวิลด์',c:'#9a7b6b'}},
+  {type:'Feature',geometry:{type:'Point',coordinates:[100.5412,13.7471]},properties:{n:'BigC',t:'บิ๊กซี สุเปอร์เซ็นเตอร์',c:'#9a7b6b'}}
+]};
+cmap.on('load',()=>{
+  cmap.addSource('places',{type:'geojson',data:placeData});
+  cmap.addLayer({id:'places-halo',type:'circle',source:'places',paint:{'circle-radius':5.5,'circle-color':'#ffffff','circle-opacity':.9}});
+  cmap.addLayer({id:'places-dot',type:'circle',source:'places',paint:{'circle-radius':3.5,'circle-color':['get','c'],'circle-stroke-width':1,'circle-stroke-color':'#ffffff'}});
+  cmap.on('click','places-dot',e=>{
+    const f=e.features[0];
+    new mapboxgl.Popup({offset:12,closeButton:true})
+      .setLngLat(f.geometry.coordinates)
+      .setHTML('<strong>'+f.properties.n+'</strong><span>'+f.properties.t+'</span>')
+      .addTo(cmap);
+  });
+  cmap.on('mouseenter','places-dot',()=>{cmap.getCanvas().style.cursor='pointer'});
+  cmap.on('mouseleave','places-dot',()=>{cmap.getCanvas().style.cursor=''});
+});
+document.querySelectorAll('.nc[data-map]').forEach(el=>{
+  const dur=el.querySelector('.dur');
+  if(dur){const row=document.createElement('div');row.className='top-row';dur.parentNode.insertBefore(row,dur);row.appendChild(dur);
+  const btn=document.createElement('a');btn.className='map-btn';btn.textContent='📍 跳转地图';btn.href=el.dataset.map;btn.onclick=e=>e.stopPropagation();row.appendChild(btn)}
+  else{const btn=document.createElement('a');btn.className='map-btn';btn.textContent='📍 跳转地图';btn.href=el.dataset.map;btn.onclick=e=>e.stopPropagation();el.insertBefore(btn,el.firstChild)}});
+document.querySelectorAll('.nc .ph img').forEach(img=>{
+  img.addEventListener('click',e=>{
+    e.stopPropagation();
+    document.getElementById('lb-img').src=img.src;
+    document.getElementById('lb').classList.add('show');
+  });
+});
+</script>
+</body>
+</html>

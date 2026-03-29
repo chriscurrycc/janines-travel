@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>韩国购物清单</title>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#5a5550;min-height:100vh;padding-bottom:40px}
+.header{padding:44px 20px 16px;text-align:center}
+.header h1{font-family:'Kalam',cursive;font-size:1.6em;color:#3a4a30}
+.header p{font-size:.78em;color:#a0a090;margin-top:4px}
+.summary{display:flex;justify-content:center;gap:16px;padding:0 20px 16px}
+.summary .box{background:white;border-radius:12px;padding:12px 20px;text-align:center;flex:1;max-width:150px;border:1px solid #e8e4dc}
+.summary .box .num{font-size:1.3em;font-weight:700;color:#3a4a30}
+.summary .box .lbl{font-size:.65em;color:#a0a090;margin-top:2px}
+.store-section{padding:0 20px;max-width:500px;margin:0 auto}
+.store-tag{display:inline-flex;align-items:center;gap:4px;font-size:.75em;font-weight:600;color:#9aab8a;background:#f0f5ea;padding:5px 14px;border-radius:12px;margin:16px 0 10px}
+.item{background:white;border-radius:12px;padding:14px 16px;margin-bottom:10px;border:1px solid #e8e4dc;box-shadow:0 1px 6px rgba(0,0,0,.03);position:relative}
+.item .check{position:absolute;top:14px;right:14px;width:22px;height:22px;border-radius:50%;border:2px solid #d8d2c8;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.item .check.checked{background:#9aab8a;border-color:#9aab8a}
+.item .check.checked::after{content:'';width:6px;height:10px;border:solid white;border-width:0 2px 2px 0;transform:rotate(45deg);margin-top:-2px}
+.item.bought{opacity:.5}
+.item.bought .name{text-decoration:line-through}
+.item .name{font-weight:600;font-size:.92em;color:#3a4a30;padding-right:30px;background:linear-gradient(transparent 40%,rgba(154,171,138,.2) 40%);display:inline;padding-left:3px;padding-right:3px}
+.item .desc{font-size:.75em;color:#8a8578;line-height:1.5;margin-top:4px}
+.item .price-row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.item .price{font-size:.9em;font-weight:700;color:#9aab8a}
+.item .price .original{font-size:.75em;color:#c0b8a8;text-decoration:line-through;margin-right:4px;font-weight:400}
+.item .where{font-size:.65em;color:#b8976b;background:#faf5ee;padding:2px 8px;border-radius:8px}
+.back{position:fixed;top:14px;left:14px;width:32px;height:32px;border-radius:50%;background:rgba(245,242,238,.9);border:1px solid #e8e4dc;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;text-decoration:none;color:#8a8578;font-size:1.1em}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">&larr;</a>
+<div class="header">
+  <h1>🇰🇷 韩国购物清单</h1>
+  <p>Seoul Shopping List</p>
+</div>
+<div class="summary">
+  <div class="box"><div class="num" id="totalItems">9</div><div class="lbl">件商品</div></div>
+  <div class="box"><div class="num" id="totalPrice">¥858</div><div class="lbl">预估总计</div></div>
+  <div class="box"><div class="num" id="boughtCount">0</div><div class="lbl">已购</div></div>
+</div>
+
+<div class="store-section">
+  <div class="store-tag">🛒 乐天免税店（线上）</div>
+
+  <div class="item" data-price="68">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">YAO 梳子</div>
+    <div class="desc">papi酱和胡彦斌推荐，很适合旅行的便携场景，国内价格121rmb</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥121</span>¥68</div>
+      <div class="where">免税店</div>
+    </div>
+  </div>
+
+  <div class="item" data-price="94">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">ABIB 谷胱甘肽祛斑精华 VITA DROP</div>
+    <div class="desc">提亮精华 50ml。免税店比OY便宜（¥94 vs ¥116），但OY多送20ml赠品</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥143</span>¥94</div>
+      <div class="where">免税店</div>
+    </div>
+  </div>
+
+  <div class="item" data-price="72">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">COSNORI 素颜霜</div>
+    <div class="desc">没有粉感，黄色的是有防晒值的，可以当校色的妆前，也可以直接当素颜霜用。OY有套装（素颜霜+粉扑+迷你装）但免税店更便宜</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥96</span>¥72</div>
+      <div class="where">免税店</div>
+    </div>
+  </div>
+
+  <div class="store-tag">🏪 Olive Young（店内）</div>
+
+  <div class="item" data-price="120">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">Celimax 视黄醛精华</div>
+    <div class="desc">适用于法令纹眼尾纹和颈纹处，每三天涂一次，每次尽量少一点使用。可以配合celimax焕亮面霜一起使用。15ml</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥156</span>¥120</div>
+      <div class="where">OY</div>
+    </div>
+  </div>
+
+  <div class="item" data-price="119">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">Celimax 焕亮面霜</div>
+    <div class="desc">配合视黄醛精华一起使用，同时还有celimax的面膜。35ml</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥182</span>¥119</div>
+      <div class="where">OY</div>
+    </div>
+  </div>
+
+  <div class="item" data-price="122">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">Celimax 面膜</div>
+    <div class="desc">提拉紧致款 5+1片装，优点就是不粘头发</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥139</span>¥122</div>
+      <div class="where">OY</div>
+    </div>
+  </div>
+
+  <div class="item" data-price="93">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">BB LAB 有机橄榄油柠檬汁</div>
+    <div class="desc">功效是可以让皮肤更好，打开代谢，促进排便。用法是空腹饮用。10包装</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥103</span>¥93</div>
+      <div class="where">OY</div>
+    </div>
+  </div>
+
+  <div class="item" data-price="67">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">BOH 胶原蛋白丰盈润唇膏</div>
+    <div class="desc">推荐原因是比较润，但价格相对来说比较贵。OY比免税店便宜（¥67 vs ¥89）。15ml</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥104</span>¥67</div>
+      <div class="where">OY</div>
+    </div>
+  </div>
+
+  <div class="item" data-price="103">
+    <div class="check" onclick="toggleBuy(this)"></div>
+    <div class="name">VT PDRN 100 精华</div>
+    <div class="desc">主打深层修复和弹力提升，坚持使用能看到细纹改善。OY是30ml 2件套比免税店划算（¥103 vs ¥128）</div>
+    <div class="price-row">
+      <div class="price"><span class="original">¥234</span>¥103</div>
+      <div class="where">OY</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleBuy(el){
+  el.classList.toggle('checked');
+  el.closest('.item').classList.toggle('bought');
+  updateCount();
+}
+function updateCount(){
+  const bought=document.querySelectorAll('.check.checked').length;
+  document.getElementById('boughtCount').textContent=bought;
+}
+// Restore state from localStorage
+const saved=JSON.parse(localStorage.getItem('kr-shopping')||'[]');
+document.querySelectorAll('.item').forEach((el,i)=>{
+  if(saved[i]){el.querySelector('.check').classList.add('checked');el.classList.add('bought')}
+});
+updateCount();
+// Save on change
+document.addEventListener('click',()=>{
+  const states=[...document.querySelectorAll('.item')].map(el=>el.classList.contains('bought'));
+  localStorage.setItem('kr-shopping',JSON.stringify(states));
+});
+</script>
+</body>
+</html>

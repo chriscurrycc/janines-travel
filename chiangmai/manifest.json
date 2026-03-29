@@ -1,0 +1,21 @@
+{
+  "name": "清迈旅行攻略",
+  "short_name": "清迈攻略",
+  "description": "🇹🇭 清迈 8 天旅行攻略 2026.05.09 - 05.16",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf8f4",
+  "theme_color": "#e8985e",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

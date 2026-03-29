@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<title>🇰🇷 釜山攻略</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f2ee;color:#5a5550;overflow:hidden;height:100vh}
+.swiper{width:100%;height:100vh}
+.swiper-slide{overflow-y:auto;padding:0 0 80px;-webkit-overflow-scrolling:touch;height:100vh}
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);border-top:1px solid #e8e4dc;display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 16px;z-index:100;backdrop-filter:blur(10px)}
+.nav button{width:40px;height:40px;border-radius:50%;border:2px solid #9aab8a;background:white;color:#9aab8a;font-size:1.1em;cursor:pointer}
+.nav button:active{background:#9aab8a;color:white}
+.nav button:disabled{border-color:#ddd;color:#ddd}
+.dots{display:flex;gap:6px}.dot{width:8px;height:8px;border-radius:50%;background:#ccc8be;cursor:pointer}.dot.active{background:#9aab8a;transform:scale(1.3)}
+.ct{padding:8px 16px 20px;max-width:500px;margin:0 auto}
+.tl{position:relative;padding-left:72px}
+.tl::before{content:'';position:absolute;left:56px;top:0;bottom:0;width:2px;border-left:2px dashed #ccc8be}
+.node{position:relative;margin-bottom:16px}
+.nt{position:absolute;left:-72px;top:18px;width:46px;text-align:right;font-weight:700;color:#9aab8a;font-size:.75em;line-height:1.2}
+.nc{background:white;border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid #e8e4dc;position:relative}
+.nc::before{content:'';position:absolute;left:-20px;top:19px;width:8px;height:8px;border-radius:50%;background:#9aab8a;z-index:1}
+.nn{font-weight:600;font-size:.92em;margin:0 0 1px;background:linear-gradient(transparent 40%,rgba(154,171,138,.25) 40%);display:inline;padding:0 3px}
+.nn-sub{font-size:.7em;color:#a0a090;letter-spacing:1px;margin-bottom:3px;display:block}
+.nd{font-size:.78em;color:#8a8578;line-height:1.5}
+.nd .hl{background:linear-gradient(transparent 60%,#e0ecd0 60%);padding:0 2px}
+.nl{font-size:.76em;color:#9aab8a;text-decoration:none;display:inline-block;margin-top:2px}
+.nc .top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
+.nc .dur{font-size:.75em;color:#9aab8a;font-weight:600;background:#f0f5ea;padding:2px 8px;border-radius:10px}
+.nc .map-btn{font-size:.68em;color:#9aab8a;background:#f0f5ea;padding:2px 8px;border-radius:8px;cursor:pointer;text-decoration:none}
+.trv{margin-bottom:4px;margin-top:-8px}
+.trv .nc{background:transparent;border:none;box-shadow:none;padding:8px 0;font-size:.75em;color:#a0a090;text-align:left}
+.trv .nc::before{display:none}
+.trv .nt{display:none}
+.ft{text-align:center;padding:20px;color:#ccc;font-size:.75em}
+.back{position:fixed;top:14px;left:14px;width:32px;height:32px;border-radius:50%;background:rgba(245,242,238,.9);border:1px solid #e8e4dc;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200;text-decoration:none;color:#8a8578;font-size:1.1em}
+.date-nav{position:fixed;top:0;left:0;right:0;background:rgba(245,242,238,.97);border-bottom:1px solid #e8e4dc;z-index:100;backdrop-filter:blur(10px);padding:14px 20px 0}
+.date-nav .dn-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;padding-left:46px}
+.date-nav .dn-header .dn-left{display:flex;align-items:baseline;gap:12px}
+.date-nav .dn-header .dn-day-num{font-family:'Kalam',cursive;font-size:1.6em;font-weight:700;color:#3a4a30}
+.date-nav .dn-header .dn-day-sub{font-family:'Kalam',cursive;font-size:1.2em;font-weight:400;color:#9aab8a}
+.date-nav .dn-header .dn-hotel{font-size:.68em;color:#a0a090;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.date-nav .dn-header .dn-hotel svg{flex-shrink:0}
+.date-nav .dn-week{display:flex;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;gap:0}
+.date-nav .dn-week::-webkit-scrollbar{display:none}
+.date-nav .dn-col{flex:1;min-width:0;cursor:pointer;text-align:center;padding:0 2px 10px;position:relative}
+.date-nav .dn-col .dn-date{font-size:.72em;font-weight:500;color:#a0a090}
+.date-nav .dn-col .dn-day{font-size:.55em;color:#b0a898;margin-top:1px}
+.date-nav .dn-col::after{content:'';position:absolute;bottom:0;left:20%;right:20%;height:2.5px;border-radius:2px;background:transparent;transition:all .2s}
+.date-nav .dn-col.active .dn-date{color:#9aab8a;font-weight:700}
+.date-nav .dn-col.active .dn-day{color:#5a6a50}
+.date-nav .dn-col.active::after{background:#9aab8a}
+.swiper-slide{padding-top:110px}
+</style>
+</head>
+<body>
+
+<a class="back" href="../index.html">&larr;</a>
+<div class="date-nav" id="date-nav">
+  <div class="dn-header" id="dn-header">
+    <div class="dn-left"><span class="dn-day-num">Day 1</span><span class="dn-day-sub">Arrival</span></div>
+    <span class="dn-hotel" id="dn-hotel"></span>
+  </div>
+  <div class="dn-week">
+    <div class="dn-col" data-slide="0"><div class="dn-date">5/02</div><div class="dn-day">SAT</div></div>
+    <div class="dn-col" data-slide="1"><div class="dn-date">5/03</div><div class="dn-day">SUN</div></div>
+  </div>
+</div>
+
+<div class="swiper" id="mySwiper">
+<div class="swiper-wrapper">
+
+<!-- Day 1: 5/02 抵达 -->
+<div class="swiper-slide" id="p0">
+  <div class="ct"><div class="tl">
+
+    <div class="node"><div class="nt">14:30</div><div class="nc"><span class="dur">14:30 - 16:55 · 飞行约2.5h</span><div class="nn">大连 → 首尔仁川</div><div class="nd">抵达后按指引出关，准备乘机场快轨进城</div></div></div>
+
+    <div class="node trv"><div class="nt"></div><div class="nc">🛂 入关约1小时，预计19:00前出关</div></div>
+
+    <div class="node"><div class="nt">19:00</div><div class="nc" data-map="https://maps.google.com/maps?q=AREX+Seoul+Airport+Railroad"><span class="dur">19:00 - 20:00</span><div class="nn">机场快轨 AREX</div><div class="nn-sub">인천공항 → 서울역</div><div class="nd">仁川机场 → 首尔站，直达约43分钟，票价9,500韩元。在机场地下1层乘坐。</div></div></div>
+
+    <div class="node"><div class="nt">20:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Seoul+Station+KTX"><span class="dur">20:30 - ~23:00</span><div class="nn">KTX 高铁</div><div class="nn-sub">서울역 → 부산역</div><div class="nd"><span class="hl">4月2日早上6:00记得抢票</span>，20:28发车，约2.5小时到釜山站。票价约60,000韩元。</div></div></div>
+
+    <div class="node trv"><div class="nt"></div><div class="nc">🚇 地铁1号线：釜山站 → 西面站，约10分钟</div></div>
+
+    <div class="node"><div class="nt">23:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Green+B+Hotel+Seomyeon+Busan"><div class="nn">Green B Hotel 西面</div><div class="nn-sub">그린비 호텔 서면</div><div class="nd">入住，休息</div></div></div>
+
+    <div class="ft">Day 1 · 抵达</div>
+  </div></div>
+</div>
+
+<!-- Day 2: 5/03 海岸一日 -->
+<div class="swiper-slide" id="p1">
+  <div class="ct"><div class="tl">
+
+    <div class="node"><div class="nt">09:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Seomyeon+Station+Busan"><span class="dur">09:00 - 09:45</span><div class="nn">西面 → 松亭</div><div class="nn-sub">서면역 → 송정역</div><div class="nd">地铁2号线直达，约42分钟，无需换乘</div></div></div>
+
+    <div class="node"><div class="nt">09:45</div><div class="nc" data-map="https://maps.google.com/maps?q=Songjeong+Beach+Busan"><span class="dur">09:45 - 10:30</span><div class="nn">松亭海水浴场</div><div class="nn-sub">송정해수욕장</div><div class="nd">在松亭海边吃早餐，海边散散步，准备出发乘胶囊小火车</div></div></div>
+
+    <div class="node"><div class="nt">10:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Haedong+Blue+Line+Park+Songjeong+Busan"><span class="dur">10:30 - 12:00</span><div class="nn">胶囊小火车</div><div class="nn-sub">해운대 블루라인파크</div><div class="nd">松亭站出发 → <span class="hl">清沙浦（拍照打卡 + 网红咖啡馆）</span> → 尾浦站。清沙浦→尾浦段提前网上预约，松亭→清沙浦可现场买票。</div></div></div>
+
+    <div class="node"><div class="nt">12:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Mipo+Haeundae+Busan"><span class="dur">12:00 - 12:30</span><div class="nn">尾浦 → 海云台</div><div class="nn-sub">미포 → 해운대해수욕장</div><div class="nd">从尾浦站步行约15分钟到海云台海水浴场</div></div></div>
+
+    <div class="node"><div class="nt">12:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Haeundae+Beach+Busan"><span class="dur">12:30 - 14:00</span><div class="nn">海云台午餐</div><div class="nn-sub">해운대 맛집</div><div class="nd">海云台附近找海鲜餐厅，推荐刀鱼汤饭或海鲜锅</div></div></div>
+
+    <div class="node"><div class="nt">14:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Haeundae+Beach+Busan"><span class="dur">14:00 - 17:30</span><div class="nn">海云台海水浴场</div><div class="nn-sub">해운대해수욕장</div><div class="nd">海边漫步、<span class="hl">喂海鸥</span>、感受釜山海风，自由活动</div></div></div>
+
+    <div class="node"><div class="nt">17:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Haeundae+seafood+restaurant+Busan"><span class="dur">17:30 - 18:30</span><div class="nn">海云台附近晚餐</div><div class="nd">在海云台附近吃晚饭，之后打车去游艇码头</div></div></div>
+
+    <div class="node"><div class="nt">19:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Suyeongman+Yacht+Marina+Busan"><span class="dur">19:00 - 20:00 · 约1小时</span><div class="nn">Yacht G 游艇出海</div><div class="nn-sub">수영만 요트경기장</div><div class="nd">水营湾游艇码头出发，<span class="hl">欣赏夕阳 + 广安大桥夜景</span>。路线：海云台 → 冬柏岛 → 广安大桥 → 广安里海水浴场。含饮料、小饼干、一次性雨衣。小红书搜「Yacht G 釜山」预约，<span class="hl">建议提前半个月</span>。</div><a class="nl" href="https://www.xiaohongshu.com" target="_blank">小红书预约 →</a></div></div>
+
+    <div class="node trv"><div class="nt"></div><div class="nc">周六晚9点广安里可能有无人机表演，看完后打车/地铁回西面酒店</div></div>
+
+    <div class="ft">Day 2 · 东海岸一日</div>
+  </div></div>
+</div>
+
+</div><!-- swiper-wrapper -->
+</div><!-- swiper -->
+
+<div class="nav">
+  <button id="pv" onclick="go(-1)">&#8592;</button>
+  <div class="dots" id="ds"></div>
+  <button id="nx" onclick="go(1)">&#8594;</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+const slides=document.querySelectorAll('.swiper-slide'),T=slides.length;
+const D=document.getElementById('ds');
+for(let i=0;i<T;i++){const d=document.createElement('div');d.className='dot'+(i===0?' active':'');d.onclick=()=>swiper.slideTo(i);D.appendChild(d)}
+const dnCols=document.querySelectorAll('.date-nav .dn-col[data-slide]');
+const dayHeaders={
+  0:['Day 1','Arrival','Green B Hotel'],
+  1:['Day 2','Sea Day','Green B Hotel']
+};
+const dateNav=document.getElementById('date-nav');
+const dnHeader=document.getElementById('dn-header');
+const dnHotel=document.getElementById('dn-hotel');
+function updateDateNav(idx){
+  dnCols.forEach(c=>{c.classList.toggle('active',parseInt(c.dataset.slide)===idx)});
+  const h=dayHeaders[idx];
+  if(h){
+    dateNav.style.display='block';
+    dnHeader.style.display='flex';
+    dnHeader.querySelector('.dn-day-num').textContent=h[0];
+    dnHeader.querySelector('.dn-day-sub').textContent=h[1];
+    dnHotel.innerHTML='<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#b8976b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>'+h[2];
+  }
+}
+dnCols.forEach(c=>{c.onclick=()=>swiper.slideTo(parseInt(c.dataset.slide))});
+const swiper=new Swiper('#mySwiper',{speed:350,threshold:20,touchStartPreventDefault:false,keyboard:{enabled:true},touchAngle:35,
+  on:{slideChange:function(){
+    const c=this.activeIndex;
+    D.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===c));
+    document.getElementById('pv').disabled=c===0;
+    document.getElementById('nx').disabled=c===T-1;
+    slides[c].scrollTop=0;
+    updateDateNav(c);
+  }}
+});
+function go(d){d>0?swiper.slideNext():swiper.slidePrev()}
+let stx=0;
+document.addEventListener('touchstart',e=>{stx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{
+  if(swiper.activeIndex!==0)return;
+  const dx=e.changedTouches[0].clientX-stx;
+  if(dx>80)window.location.href='../index.html';
+});
+updateDateNav(0);
+document.querySelectorAll('.nc[data-map]').forEach(el=>{
+  const dur=el.querySelector('.dur');
+  if(dur){const row=document.createElement('div');row.className='top-row';dur.parentNode.insertBefore(row,dur);row.appendChild(dur);
+  const btn=document.createElement('a');btn.className='map-btn';btn.textContent='📍 跳转地图';btn.href=el.dataset.map;btn.target='_blank';btn.onclick=e=>e.stopPropagation();row.appendChild(btn)}
+  else{const btn=document.createElement('a');btn.className='map-btn';btn.textContent='📍 跳转地图';btn.href=el.dataset.map;btn.target='_blank';btn.onclick=e=>e.stopPropagation();el.insertBefore(btn,el.firstChild)}
+});
+</script>
+</body>
+</html>

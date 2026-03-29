@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="清迈攻略">
+<meta name="theme-color" content="#e8985e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<title>🇹🇭 清迈 8 天攻略</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#faf8f4;color:#5a4e42;overflow:hidden;height:100vh}
+.swiper{width:100%;height:100vh}
+.swiper-slide{overflow-y:auto;padding:0 0 80px;-webkit-overflow-scrolling:touch;height:100vh}
+.nav{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.95);border-top:1px solid #ece6dc;display:flex;justify-content:center;align-items:center;gap:8px;padding:12px 16px;z-index:100;backdrop-filter:blur(10px)}
+.nav button{width:40px;height:40px;border-radius:50%;border:2px solid #e8985e;background:white;color:#e8985e;font-size:1.1em;cursor:pointer}
+.nav button:active{background:#e8985e;color:white}
+.nav button:disabled{border-color:#ddd;color:#ddd}
+.dots{display:flex;gap:6px}.dot{width:8px;height:8px;border-radius:50%;background:#e0d8cc;cursor:pointer}.dot.active{background:#e8985e;transform:scale(1.3)}
+.cover{height:45vh;display:flex;flex-direction:column;justify-content:center;align-items:center;background:linear-gradient(to bottom,rgba(250,240,230,.3),rgba(232,152,94,.6)),url('cover.jpg') center/cover}
+.cover h1{font-size:1.8em;color:white;margin-bottom:4px;text-shadow:0 1px 4px rgba(0,0,0,.3)}
+.cover p{color:rgba(255,255,255,.95);font-size:1em;text-shadow:0 1px 3px rgba(0,0,0,.2)}
+.cover .sub{font-size:.8em;color:rgba(255,255,255,.7);margin-top:8px}
+.ribbon{background:rgba(255,255,255,.25);color:white;padding:6px 24px;border-radius:4px;font-size:.85em;margin-bottom:12px;letter-spacing:1px;backdrop-filter:blur(4px)}
+.day-top{text-align:center;padding:24px 16px 8px}
+.day-ribbon{display:inline-block;background:#e8985e;color:white;padding:8px 28px;border-radius:4px;font-size:1em;font-weight:600}
+.day-sub{font-size:.8em;color:#b0a496;margin-top:6px}
+.ct{padding:8px 16px 20px;max-width:500px;margin:0 auto}
+.tl{position:relative;padding-left:72px}
+.tl::before{content:'';position:absolute;left:56px;top:0;bottom:0;width:2px;border-left:2px dashed #e0d8cc}
+.node{position:relative;margin-bottom:16px}
+.nt{position:absolute;left:-72px;top:18px;width:46px;text-align:right;font-weight:700;color:#e8985e;font-size:.75em;line-height:1.2}
+.nc{background:white;border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid #f0ece6;position:relative}
+.nc::before{content:'';position:absolute;left:-20px;top:19px;width:8px;height:8px;border-radius:50%;background:#e8985e;z-index:1}
+.nn{font-weight:600;font-size:.92em;margin:0 0 3px}
+.nd{font-size:.78em;color:#8a7e72;line-height:1.5}
+.nl{font-size:.76em;color:#e8985e;text-decoration:none;display:inline-block;margin-top:2px}
+.nc .dur{display:block;font-size:.75em;color:#e8985e;font-weight:600;background:#fef6f0;padding:2px 8px;border-radius:10px;margin-bottom:5px;width:fit-content}
+.nc .map-btn{position:absolute;top:8px;right:10px;font-size:.68em;color:#e8985e;background:#fef6f0;padding:2px 8px;border-radius:8px;cursor:pointer;text-decoration:none;z-index:2}
+.trv{margin-bottom:4px;margin-top:-8px}
+.trv .nc{background:transparent;border:none;box-shadow:none;padding:8px 0 8px 0;font-size:.75em;color:#b0a496;text-align:left}
+.trv .nc::before{display:none}
+.trv .nt{display:none}
+.tg{display:inline-block;font-size:.7em;padding:2px 6px;border-radius:8px;margin-left:3px}
+.tw{background:#fff3e0;color:#e65100}.tt{background:#e8f5e9;color:#2e7d32}.tr2{background:#e3f2fd;color:#1565c0}
+.info{background:white;border-radius:12px;padding:14px;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid #f0ece6}
+.info h3{color:#d4724e;font-size:.95em;margin-bottom:8px}.info ul{list-style:none}.info li{padding:4px 0;font-size:.85em;border-bottom:1px solid #f5f0ea}.info li:last-child{border:none}
+.rc{background:white;border-radius:12px;padding:14px;margin:10px 0;box-shadow:0 2px 8px rgba(0,0,0,.04);border-left:3px solid #e8985e}
+.rc h3{color:#d4724e;font-size:.95em;margin-bottom:8px}.ri{padding:5px 0;font-size:.83em;border-bottom:1px solid #f0ece6}.ri:last-child{border:none}
+.ft{text-align:center;padding:20px;color:#ccc;font-size:.75em}
+</style>
+</head>
+<body>
+
+<div class="swiper" id="mySwiper">
+<div class="swiper-wrapper">
+<!-- P0: Cover -->
+<div class="swiper-slide" id="p0">
+  <div class="cover">
+    <div class="ribbon">TRAVEL PLAN</div>
+    <h1>🇹🇭 清迈 Chiang Mai</h1>
+    <p>2026.05.09 - 05.16 · 8天7晚</p>
+    <div class="sub">← 左右滑动翻页 →</div>
+  </div>
+  <div class="ct">
+    <div class="info"><h3>📋 基本信息</h3><ul>
+      <li>💰 货币：泰铢 THB，金额 ÷ 5 ≈ 人民币（100฿ ≈ ¥20）</li>
+      <li>🕐 时差：比北京晚1h（北京8:00 = 泰国7:00）</li>
+      <li>💵 小费：行李员/保洁/摩的 20฿，不给硬币</li>
+      <li>☀️ 必带：防晒霜、长袖外套（室内冷）</li>
+      <li>💵 支付：90%现金，多备小额泰铢</li>
+    </ul></div>
+    <div class="info"><h3>🏨 住宿</h3><ul>
+      <li>5/09-10 Cochet de Nimman · 宁曼路</li>
+      <li>5/10-12 Naturetalk Homestay</li>
+      <li>5/12-16 Por Singharat · 古城</li>
+    </ul></div>
+  </div>
+</div>
+
+<!-- P1: Day 1 -->
+<div class="swiper-slide" id="p1">
+  <div class="day-top"><div class="day-ribbon">Day 1 · 5/09 周六 — 抵达</div><div class="day-sub">🏠 Cochet de Nimman</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">17:45</div><div class="nc" data-map="https://maps.google.com/maps?q=Chiang+Mai+International+Airport"><span class="dur">17:45 - 21:50 · 飞行约4h</span><div class="nn">✈️ 北京首都T3 → 清迈</div><div class="nd">CA823</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🛂 出境约1小时</div></div>
+    <div class="node"><div class="nt">22:50</div><div class="nc"><div class="nn">🚗 Grab 去酒店</div><div class="nd">距离不远，直接打 Grab</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 15min / 5.0km</div></div>
+    <div class="node"><div class="nt">23:05</div><div class="nc" data-map="https://maps.google.com/maps?q=Cochet+de+Nimman+Chiang+Mai"><div class="nn">🏨 入住 Cochet de Nimman</div><div class="nd">距机场近，距 One Nimman 步行4min，网上评价不多，开盲盒体验一把。到了直接休息 💤</div></div></div>
+  </div></div>
+</div>
+
+<!-- P2: Day 2 -->
+<div class="swiper-slide" id="p2">
+  <div class="day-top"><div class="day-ribbon">Day 2 · 5/10 周日 — 市集日</div><div class="day-sub">🏠 Naturetalk Homestay</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">08:40</div><div class="nc"><span class="dur">07:30 - 08:40</span><div class="nn">🏨 Cochet de Nimman 退房</div><div class="nd">寄存行李，晚上回来取</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="入住 Cochet de Nimman|||Chamchaa Market 雨树市集">🚗 20min / 12.8km</div></div>
+    <div class="node"><div class="nt">09:00</div><div class="nc" data-map="https://maps.app.goo.gl/PVRJKJVi6zXahhJ76"><span class="dur">09:00 - 11:00</span><div class="nn">🌿 Chamchaa Market 雨树市集</div><div class="nd">小众手作聚集地 <span class="tg tw">⚠️ 14:00收摊</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Chamchaa Market 雨树市集|||Bamboo Family Market 竹子市集">🚗 10min / 4.3km</div></div>
+    <div class="node"><div class="nt">11:10</div><div class="nc" data-map="https://maps.app.goo.gl/nch7dYBUSGZ6PdEB9"><span class="dur">11:10 - 12:00</span><div class="nn">🎋 Bamboo Family Market 竹子市集</div><div class="nd">没有商业化的市集</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Bamboo Family Market 竹子市集|||JJ Market 逛吃">🚗 20min / 10.7km</div></div>
+    <div class="node"><div class="nt">12:20</div><div class="nc" data-map="https://maps.app.goo.gl/ZMJ4iPZyKBgixrSt7"><span class="dur">12:20 - 14:00</span><div class="nn">🛍️ JJ Market 逛吃 + ICE HUB 取画</div><div class="nd">周末流动摊位多，可以逛吃，两点收摊。去 ICE HUB 找画丑照大叔取画 <span class="tg tr2">📌 5/1前小红书预约</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="JJ Market 逛吃|||Saruda Finest Pastry">🚗 20min / 4.7km</div></div>
+    <div class="node"><div class="nt">14:20</div><div class="nc" data-map="https://maps.app.goo.gl/4jTdNHxKsBinPPvp6"><span class="dur">14:20 - 14:50</span><div class="nn">🍰 Saruda Finest Pastry</div><div class="nd">小红书推荐的很好吃的蛋糕店，在 One Nimman 商场内</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Saruda Finest Pastry|||GratefulBest 二手服装">🚶 5min / 396m</div></div>
+    <div class="node"><div class="nt">14:55</div><div class="nc" data-map="https://maps.app.goo.gl/4V3cXQZfL23rfZwV7"><span class="dur">14:55 - 15:40</span><div class="nn">💰 GratefulBest 二手服装</div><div class="nd">MAYA商场旁，5.0⭐，很多好货 <span class="tg tw">⚠️ 去前IG确认营业</span> <span class="tg tt">💰 一定讲价！</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="GratefulBest 二手服装|||Nimman One White Market" style="cursor:pointer">🚶 5min / 396m</div></div>
+    <div class="node"><div class="nt">15:45</div><div class="nc" data-map="https://maps.app.goo.gl/T3kCMnWXSqzQ5PdLA"><span class="dur">15:45 - 17:30</span><div class="nn">🎪 Nimman One White Market</div><div class="nd">日式手工夜市，找胖胖摊主画画 <span class="tg tr2">📌 5/1前预约胖胖摊主</span></div><a class="nl" href="http://xhslink.com/o/uW52CNraLh">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Nimman One White Market|||Naturetalk Homestay 入住" style="cursor:pointer">🚶 5min 回 Cochet 取行李 → 🚗 25min / 14.5km</div></div>
+    <div class="node"><div class="nt">18:00</div><div class="nc" data-map="https://maps.app.goo.gl/4HqN38LmK4PELoz96"><div class="nn">🏡 Naturetalk Homestay 入住</div><div class="nd">有小狗🐕 <span class="tg tw">⚠️ 前台已下班，提前联系</span></div></div></div>
+  </div></div>
+</div>
+
+<!-- P3: Day 3 -->
+<div class="swiper-slide" id="p3">
+  <div class="day-top"><div class="day-ribbon">Day 3 · 5/11 周一 — 包车泰北</div><div class="day-sub">🏠 Naturetalk Homestay</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">08:40</div><div class="nc"><div class="nn">🏨 出发</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Naturetalk Homestay 入住|||Tiger Kingdom 老虎王国" style="cursor:pointer">🚗 20min / 10.2km</div></div>
+    <div class="node"><div class="nt">09:00</div><div class="nc" data-map="https://maps.app.goo.gl/CgFipffEfciBk2pY9"><span class="dur">09:00 - 10:00</span><div class="nn">🐯 Tiger Kingdom 老虎王国</div><div class="nd">现场买票即可，开门冲，老虎这时候最活泼</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Tiger Kingdom 老虎王国|||清迈蓝庙 Wat Ban Den（快速打卡）" style="cursor:pointer">🚗 40min / 31km</div></div>
+    <div class="node"><div class="nt">10:40</div><div class="nc" data-map="https://maps.app.goo.gl/59B6xYnWsdwUQcp27"><span class="dur">10:40 - 10:55</span><div class="nn">🛕 清迈蓝庙 Wat Ban Den（快速打卡）</div><div class="nd"> <span class="tg tw">⚠️ 遮肩膀膝盖，摘帽子墨镜</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="清迈蓝庙 Wat Ban Den（快速打卡）|||粘粘瀑布 Buatong Waterfall" style="cursor:pointer">🚗 30min</div></div>
+    <div class="node"><div class="nt">11:25</div><div class="nc"><span class="dur">11:25 - 12:25</span><div class="nn">🍜 午餐</div><div class="nd">让包车小哥推荐本地餐厅</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 30min</div></div>
+    <div class="node"><div class="nt">12:55</div><div class="nc" data-map="https://maps.app.goo.gl/kuf6HxxESFaeWkVo8"><span class="dur">12:55 - 14:00</span><div class="nn">💦 粘粘瀑布 Buatong Waterfall</div><div class="nd"> <span class="tg tw">⚠️ 带换洗衣服（内裤）、一次性浴巾、防水袋、溯溪鞋</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="粘粘瀑布 Buatong Waterfall|||丛林 ATV（Bullard the Adventure）" style="cursor:pointer">🚗 55min / 45.3km</div></div>
+    <div class="node"><div class="nt">15:00</div><div class="nc" data-map="https://maps.app.goo.gl/qmYB8Lt4Tp7f6yn29"><span class="dur">15:00 - 16:30</span><div class="nn">🏎️ 丛林 ATV（Bullard the Adventure）</div><div class="nd">⚠️ 15:00准时开始！1,300฿ [Driver] / 700฿ [Passenger]，含咖啡零食WiFi、储物柜、防水手机袋</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" style="cursor:pointer">🚗 55min / 46.5km</div></div>
+    <div class="node"><div class="nt">17:25</div><div class="nc"><span class="dur">17:25 - 18:25</span><div class="nn">💆 按摩</div><div class="nd">Naturetalk 附近找马杀鸡</div></div></div>
+  </div></div>
+</div>
+
+<!-- P4: Day 4 -->
+<div class="swiper-slide" id="p4">
+  <div class="day-top"><div class="day-ribbon">Day 4 · 5/12 周二 — 古城</div><div class="day-sub">🏠 Por Singharat</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">08:00</div><div class="nc"><div class="nn">🏨 Naturetalk 退房带行李</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 30min / 15.1km</div></div>
+    <div class="node"><div class="nt">08:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Green+Hill+Swimming+Pool+Chiang+Mai"><span class="dur">08:30 - 10:00</span><div class="nn">🏊 绿山游泳池 游泳课</div><div class="nd">⚠️ 第一天提前30min到，熟悉路线+换衣热身，09:00开始。门票80฿/人</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 15min / 4.2km → Por Singharat 寄存行李 + 化妆（共1h）</div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><span data-nav="Por Singharat Hotel Chiang Mai|||Zohng Coffee Chiang Mai" style="cursor:pointer;color:#e8985e">🚶 10min / 694m</span></div></div>
+    <div class="node"><div class="nt">11:10</div><div class="nc" data-map="https://maps.google.com/maps?q=Zohng+Coffee+Chiang+Mai"><span class="dur">11:10 - 11:50</span><div class="nn">☕ Zohng Coffee</div><div class="nd">4.6⭐（1393评）欧美人居多，美味白人饭。推荐蘑菇三明治、鳄梨三明治、胡萝卜蛋糕 <span class="tg tr2">📌 先去柜台点餐付钱再落座</span></div><a class="nl" href="http://xhslink.com/o/7tLDj4itQ6R">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Zohng Coffee Chiang Mai|||Wat Phra Singh Chiang Mai" style="cursor:pointer">🚶 步行2min / 138m</div></div>
+    <div class="node"><div class="nt">11:52</div><div class="nc" data-map="https://maps.google.com/maps?q=Wat+Phra+Singh+Chiang+Mai"><span class="dur">11:52 - 12:30</span><div class="nn">🛕 帕辛寺 Wat Phra Singh</div><div class="nd">建于1345年兰纳王朝，供奉泰北最神圣的帕辛佛像。莱卡经堂保存精美兰纳壁画，融合兰纳、斯里兰卡和缅甸建筑风格。免费 <span class="tg tw">⚠️ 遮肩膀膝盖</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Wat Phra Singh Chiang Mai|||Wat Chedi Luang Chiang Mai" style="cursor:pointer">🚶 步行10min / 704m</div></div>
+    <div class="node"><div class="nt">12:40</div><div class="nc" data-map="https://maps.google.com/maps?q=Wat+Chedi+Luang+Chiang+Mai"><span class="dur">12:40 - 13:20</span><div class="nn">🛕 契迪龙寺 Wat Chedi Luang</div><div class="nd">建于1391年，82米巨型佛塔曾是清迈最高建筑，曾供奉玉佛（现在曼谷）。塔基四面大象雕塑守护，残缺塔身沧桑震撼。免费 <span class="tg tw">⚠️ 遮肩膀膝盖</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Wat Chedi Luang Chiang Mai|||So Sood the good noodles Chiang Mai" style="cursor:pointer">🚶 步行5min / 413m</div></div>
+    <div class="node"><div class="nt">13:25</div><div class="nc" data-map="https://maps.google.com/maps?q=So+Sood+the+good+noodles+Chiang+Mai"><span class="dur">13:25 - 14:00</span><div class="nn">🍜 So Sood the good noodles</div><div class="nd">4.9⭐ 家庭式面馆，每碗现做，蔬菜来自自家小农场。必点 Nam-Prik-Ong noodles（奶奶秘方，辣味独特）。干净温馨，价格实惠</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="So Sood the good noodles Chiang Mai|||YOUNG TILL I DIE Chiang Mai" style="cursor:pointer">🚶 步行10min / 729m</div></div>
+    <div class="node"><div class="nt">14:10</div><div class="nc" data-map="https://maps.app.goo.gl/2ULKTvDcsPGcfkDV6"><span class="dur">14:10 - 15:50</span><div class="nn">👗 YOUNG TILL I DIE</div><div class="nd">古城新开古着店，"离开清迈最后两小时还要再去的店"，店铺很小但很多牌子 <span class="tg tw">⚠️ 真假需咨询店主</span></div><a class="nl" href="http://xhslink.com/o/1BwVKxiimtR">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="YOUNG TILL I DIE Chiang Mai|||The Story Lifestyle Shop Chiang Mai" style="cursor:pointer">🚗 10min / 2.5km</div></div>
+    <div class="node"><div class="nt">16:00</div><div class="nc" data-map="https://maps.google.com/maps?q=The+Story+Lifestyle+Shop+Chiang+Mai"><span class="dur">16:00 - 16:45</span><div class="nn">🪵 The Story Life Style Shop</div><div class="nd">手工木制品，都是孤品 <span class="tg tw">⚠️ 16:00才开门，电子支付加收3%手续费</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="The Story Lifestyle Shop Chiang Mai|||Rivers and Roads Tha Phae Road Chiang Mai" style="cursor:pointer">🚶 步行5min / 226m</div></div>
+    <div class="node"><div class="nt">16:50</div><div class="nc" data-map="https://maps.google.com/maps?q=Rivers+and+Roads+90+Tha+Phae+Road+Chiang+Mai"><span class="dur">16:50 - 17:05</span><div class="nn">🛍️ Rivers & Roads</div><div class="nd">中古摆件+原创商品，周边街道两边很多特色文创店，可以淘古兰纳风格的中古孤品</div><a class="nl" href="http://xhslink.com/o/2dM7i6FApI1">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Rivers and Roads Tha Phae Road Chiang Mai|||Akaliko design shop Tha Phae Road Chiang Mai" style="cursor:pointer">🚶 步行1min / 36m（隔壁）</div></div>
+    <div class="node"><div class="nt">17:06</div><div class="nc" data-map="https://maps.google.com/maps?q=Akaliko+design+shop+60+Tha+Phae+Road+Chiang+Mai"><span class="dur">17:06 - 17:25</span><div class="nn">🛍️ Akaliko design shop</div><div class="nd">商品种类丰富超乎想象，各种家居用品+小众设计师品牌服装+造型别致的香薰蜡烛</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Akaliko design shop Chiang Mai|||SBTYL Chiang Mai Chang Moi Rd" style="cursor:pointer">🚶 步行10min / 519m</div></div>
+    <div class="node"><div class="nt">17:35</div><div class="nc" data-map="https://maps.app.goo.gl/hUqi4fH6WberTZt28"><span class="dur">17:35 - 17:50</span><div class="nn">🧸 SBTYL</div><div class="nd">玩具大集合！昭和玩具+日本手作产品。还有新分店在老店下一个路口（地图没有，可以让老板娘带你去，人超好！）</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="SBTYL Chiang Mai|||Khanom khrok Chiang Mai" style="cursor:pointer">🚶 步行5min / 308m</div></div>
+    <div class="node"><div class="nt">17:55</div><div class="nc" data-map="https://maps.google.com/maps?q=Khanom+khrok+Traditional+Thai+coconut-rice+pancakes+Chiang+Mai"><span class="dur">17:55 - 18:05</span><div class="nn">🥥 Khanom Khrok 椰奶煎饼</div><div class="nd">5.0⭐ 全清迈最好吃的椰奶煎饼！传统泰式椰子米煎饼</div><a class="nl" href="http://xhslink.com/o/8u7VAOw6TlV">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Khanom khrok Chiang Mai|||Roti Pa Dae Tha Phae Road Chiang Mai" style="cursor:pointer">🚶 步行5min / 260m</div></div>
+    <div class="node"><div class="nt">18:10</div><div class="nc" data-map="https://maps.google.com/maps?q=Roti+Pa+Dae+Tha+Phae+Road+Chiang+Mai"><span class="dur">18:10 - 18:25</span><div class="nn">🥞 Roti Pa Dae 米其林香蕉煎饼</div><div class="nd">连续5年米其林甜点！招牌黄油香蕉饼，饼皮酥脆内里流心，只要20฿。自己写单叫号 <span class="tg tr2">📌 排队约10min</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Roti Pa Dae Chiang Mai|||Namtok Noodles Chiang Mai" style="cursor:pointer">🚶 步行5min / 329m</div></div>
+    <div class="node"><div class="nt">18:30</div><div class="nc" data-map="https://maps.app.goo.gl/A8cQeZ3XtwgjPwd48"><span class="dur">18:30 - 19:00</span><div class="nn">🍜 Namtok Noodles 猪杂粉</div><div class="nd">值得专程来吃的路边摊！推荐猪杂，牛肉汤粉，猪排汤。不甜的面汤回味甘甜，一点都不腻，清香的汤底 <span class="tg tw">⚠️ 只开晚上</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Namtok Noodles Chiang Mai|||Tha Phae Gate Chiang Mai" style="cursor:pointer">🚶 步行5min / 389m</div></div>
+    <div class="node"><div class="nt">19:05</div><div class="nc" data-map="https://maps.google.com/maps?q=Tha+Phae+Gate+Chiang+Mai"><span class="dur">19:05 - 19:45</span><div class="nn">🏛️ 塔佩门 Tha Phae Gate 夜景</div><div class="nd">夜间限定浪漫！红砖城墙打暖光，护城河边听街头艺人弹唱，拍剪影超有故事感</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚶 步行25min / 1.6km 回酒店</div></div>
+  </div></div>
+</div>
+
+<!-- P5: Day 5 -->
+<div class="swiper-slide" id="p5">
+  <div class="day-top"><div class="day-ribbon">Day 5 · 5/13 周三 — 平河边</div><div class="day-sub">🏠 Por Singharat</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">08:30</div><div class="nc"><div class="nn">🏨 酒店出发</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 15min / 3.2km</div></div>
+    <div class="node"><div class="nt">08:45</div><div class="nc" data-map="https://maps.google.com/maps?q=Green+Hill+Swimming+Pool+Chiang+Mai"><span class="dur">08:45 - 10:00</span><div class="nn">🏊 绿山游泳池 游泳课</div><div class="nd">提前15min到，换衣热身</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="绿山游泳池 游泳课|||清迈门市场 brunch" style="cursor:pointer">🚗 20min / 6.6km</div></div>
+    <div class="node"><div class="nt">10:20</div><div class="nc" data-map="https://maps.google.com/maps?q=Chiang+Mai+Gate+Market"><span class="dur">10:20 - 11:20</span><div class="nn">🥘 清迈门市场 brunch</div><div class="nd">古城附近规模最大的早市之一，清晨4点营业，很多熟食 <span class="tg tw">⚠️ 12:00收摊</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><span data-nav="Chiang Mai Gate Market|||Por Singharat Hotel Chiang Mai" style="cursor:pointer;color:#e8985e">🚶 25min / 1.8km</span> → 回酒店整顿（30min）→ <span data-nav="Por Singharat Hotel Chiang Mai|||Peace Pause Place Chiang Mai" style="cursor:pointer;color:#e8985e">🚗 15min / 6.3km</span></div></div>
+    <div class="node"><div class="nt">12:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Peace+Pause+Place+Chiang+Mai"><span class="dur">12:30 - 13:30</span><div class="nn">☕ Peace Pause Place</div><div class="nd">平河边一家可以画画的咖啡馆，点杯咖啡免费画画，看河景超 chill</div><a class="nl" href="http://xhslink.com/o/TKy4emW3Tf">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Peace Pause Place|||Lonewanderer 古着三层" style="cursor:pointer">🚗 15min / 5.3km</div></div>
+    <div class="node"><div class="nt">13:45</div><div class="nc" data-map="https://maps.app.goo.gl/1NSDh4xEspWQQPxTA"><span class="dur">13:45 - 14:45</span><div class="nn">👗 Lonewanderer 古着三层</div><div class="nd">1F衣服 / 2F黑胶唱片 / 3F可爱小玩意 <span class="tg tw">⚠️ 价格偏高，买手店性质</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Lonewanderer 古着三层|||JoyJoin Ice Cream" style="cursor:pointer">🚶 隔壁</div></div>
+    <div class="node"><div class="nt">14:45</div><div class="nc" data-map="https://maps.app.goo.gl/WxHEAcVgBgM29Lfn6"><span class="dur">14:45 - 15:15</span><div class="nn">🍦 JoyJoin Ice Cream</div><div class="nd">好吃的手工冰淇淋12种口味，还能玩桌游</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="JoyJoin Ice Cream|||Tiny Space" style="cursor:pointer">🚶 5min / 960m</div></div>
+    <div class="node"><div class="nt">15:20</div><div class="nc" data-map="https://maps.app.goo.gl/DZu9zC4ByMcKVMCy6"><span class="dur">15:20 - 16:20</span><div class="nn">🧸 Tiny Space</div><div class="nd">店主各地淘的可爱杂货 + 自主设计衣服 <span class="tg tr2">📱 去前IG @tiny.space.cnx 确认</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Tiny Space|||Favs Selected" style="cursor:pointer">🚶 步行20min / 1.3km</div></div>
+    <div class="node"><div class="nt">16:40</div><div class="nc" data-map="https://maps.app.goo.gl/V8QSkWSfG6Lfx1T2A"><span class="dur">16:40 - 17:30</span><div class="nn">🪑 Favs Selected</div><div class="nd">两层楼复古家具 + 玩具 + Hello Kitty收藏 + HAY家具快闪</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Favs Selected Chang Moi Chiang Mai|||Main Wall Climbing Gym Chiang Mai" style="cursor:pointer">🚶 步行25min / 1.8km</div></div>
+    <div class="node"><div class="nt">17:55</div><div class="nc" data-map="https://maps.google.com/maps?q=Main+Wall+Climbing+Gym+Chiang+Mai"><span class="dur">17:55 - 19:30</span><div class="nn">🧗 Main Wall 攀岩</div><div class="nd">室内攀岩馆，683㎡攀爬面，顶绳/先锋/抱石，新手友好（平日开到21:00）。请教练 1v1 2小时 990฿/人</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚶 步行15min / 925m 回酒店</div></div>
+  </div></div>
+</div>
+
+<!-- P6: Day 6 -->
+<div class="swiper-slide" id="p6">
+  <div class="day-top"><div class="day-ribbon">Day 6 · 5/14 周四 — 西边艺术区</div><div class="day-sub">🏠 Por Singharat</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">08:30</div><div class="nc"><div class="nn">🏨 酒店出发</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" style="cursor:pointer">🚗 15min / 3.2km</div></div>
+    <div class="node"><div class="nt">08:45</div><div class="nc" data-map="https://maps.google.com/maps?q=Green+Hill+Swimming+Pool+Chiang+Mai"><span class="dur">08:45 - 10:00</span><div class="nn">🏊 绿山游泳池 游泳课</div><div class="nd">提前15min到，换衣热身</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><span data-nav="Green Hill Swimming Pool Chiang Mai|||Somyong Pochana Chiang Mai" style="cursor:pointer;color:#e8985e">🚗 10min / 4.4km</span></div></div>
+    <div class="node"><div class="nt">10:10</div><div class="nc" data-map="https://maps.google.com/maps?q=Somyong+Pochana+Chiang+Mai"><span class="dur">10:10 - 10:50</span><div class="nn">🍜 Somyong Pochana</div><div class="nd">4.8⭐ 夫妻经营的 local 泰餐小馆，超绝！推荐 Khao Soi 咖喱面、Pad Krapao、Panang Curry，价格很便宜</div><a class="nl" href="http://xhslink.com/o/ABmHru2DOp">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><span data-nav="Somyong Pochana Chiang Mai|||Por Singharat Hotel Chiang Mai" style="cursor:pointer;color:#e8985e">🚶 15min / 965m</span> → 回酒店整顿（30min）→ <span data-nav="Por Singharat Hotel Chiang Mai|||Lanna Traditional House Museum Chiang Mai" style="cursor:pointer;color:#e8985e">🚗 15min / 4.9km</span></div></div>
+    <div class="node"><div class="nt">11:50</div><div class="nc" data-map="https://maps.google.com/maps?q=Lanna+Traditional+House+Museum+Chiang+Mai"><span class="dur">11:50 - 12:50</span><div class="nn">🏛️ Lanna Traditional House Museum</div><div class="nd">室外博物馆+能量充电站，距机场很近，每隔几分钟有飞机起降，可以躺着看飞机从树冠间隙飞过。清迈大学教授主导迁移的十几幢兰纳民居和米仓，感受藏在木头里的千年智慧。门票100฿ <span class="tg tw">⚠️ 周二-周日 8:30-16:30，周一休</span></div><a class="nl" href="http://xhslink.com/o/6BEu9segxuX">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Lanna Traditional House Museum|||Baan Kang Wat" style="cursor:pointer">🚗 10min / 2.6km</div></div>
+    <div class="node"><div class="nt">13:00</div><div class="nc" data-map="https://maps.app.goo.gl/R2Ym6AdTAEtyJ82z8"><span class="dur">13:00 - 15:00</span><div class="nn">🎨 Baan Kang Wat 艺术村</div><div class="nd">小众艺术村市集，有咖啡有文创，很适合拍照</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Baan Kang Wat 艺术村|||The Pattern Thai Massage" style="cursor:pointer">🚶 5min / 494m</div></div>
+    <div class="node"><div class="nt">15:05</div><div class="nc" data-map="https://maps.app.goo.gl/B6q7m4afq3Upy6BL6"><span class="dur">15:05 - 17:00</span><div class="nn">💆 The Pattern Thai Massage</div><div class="nd">350฿/h 普通，500฿/h 椰子油按摩，椰子油的清香让人在大热天不急躁了</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" style="cursor:pointer">🚗 20min / 6.4km → 回酒店休息</div></div>
+    <div class="node"><div class="nt">17:20</div><div class="nc"><div class="nn">🏨 回酒店休息</div><div class="nd">下午空余，后续可补充</div></div></div>
+  </div></div>
+</div>
+
+<!-- P7: Day 7 -->
+<div class="swiper-slide" id="p7">
+  <div class="day-top"><div class="day-ribbon">Day 7 · 5/15 周五 — 大学和大象</div><div class="day-sub">🏠 Por Singharat</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">06:35</div><div class="nc"><div class="nn">🏨 酒店出发（大象营接送）</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 70min / 52.4km</div></div>
+    <div class="node"><div class="nt">07:45</div><div class="nc" data-map="https://maps.app.goo.gl/XiJUtkwYBv7ZaXuz7"><span class="dur">07:45 - 13:00</span><div class="nn">🐘 TeeTee 大象营 半日游</div><div class="nd">喂水果、做维生素球、和大象散步、帮大象洗澡，含素食午餐。400元/人</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><span data-nav="TeeTee Elephant Home Chiang Mai|||Por Singharat Hotel Chiang Mai" style="cursor:pointer;color:#e8985e">🚗 70min 送回酒店</span> → 休整（25min）→ <span data-nav="Por Singharat Hotel Chiang Mai|||Green Hill Swimming Pool Chiang Mai" style="cursor:pointer;color:#e8985e">🚗 10min / 3.2km</span></div></div>
+    <div class="node"><div class="nt">14:45</div><div class="nc" data-map="https://maps.google.com/maps?q=Green+Hill+Swimming+Pool+Chiang+Mai"><span class="dur">14:45 - 16:00</span><div class="nn">🏊 绿山游泳池 游泳课</div><div class="nd">提前15min到，换衣热身，15:00开始</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="绿山游泳池 游泳课|||清迈大学 校园游览" style="cursor:pointer">🚗 10min / 2.4km</div></div>
+    <div class="node"><div class="nt">16:10</div><div class="nc" data-map="https://maps.google.com/maps?q=Chiang+Mai+University"><span class="dur">16:10 - 17:40</span><div class="nn">🎓 清迈大学 校园游览 + 附近待安排</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="清迈大学 校园游览|||清迈大学后门夜市" style="cursor:pointer">🚗 20min / 5.1km</div></div>
+    <div class="node"><div class="nt">18:00</div><div class="nc" data-map="https://maps.app.goo.gl/9svPPdD3fj5ucMVs9"><span class="dur">18:00 - 20:00</span><div class="nn">🍖 清迈大学后门夜市</div><div class="nd"></div></div></div>
+  </div></div>
+</div>
+
+<!-- P8: Day 8 -->
+<div class="swiper-slide" id="p8">
+  <div class="day-top"><div class="day-ribbon">Day 8 · 5/16 周六 — 返程</div><div class="day-sub">退房 Por Singharat</div></div>
+  <div class="ct"><div class="tl">
+    <div class="node"><div class="nt">08:30</div><div class="nc"><div class="nn">🏨 Por Singharat 退房，寄存行李</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" style="cursor:pointer">🚗 15min / 4.2km</div></div>
+    <div class="node"><div class="nt">08:45</div><div class="nc" data-map="https://maps.google.com/maps?q=Green+Hill+Swimming+Pool+Chiang+Mai"><span class="dur">08:45 - 10:00</span><div class="nn">🏊 绿山游泳池 游泳课</div><div class="nd">提前15min到，换衣热身</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="绿山游泳池 游泳课|||Nong Ho Flea Market 跳蚤市场" style="cursor:pointer">🚗 10min / 2.9km</div></div>
+    <div class="node"><div class="nt">10:10</div><div class="nc" data-map="https://maps.app.goo.gl/UuvK9dpyscrGAAGC9"><span class="dur">10:10 - 12:00</span><div class="nn">🛍️ Nong Ho Flea Market 跳蚤市场</div><div class="nd">本地人的跳蚤市场，可以淘复古物件、二手货、古董 <span class="tg tw">⚠️ 仅周末 07:00-14:00，最后机会！</span></div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Nong Ho Flea Market 跳蚤市场|||Early Bird CNX (Tha Phae)" style="cursor:pointer">🚗 15min / 7.8km</div></div>
+    <div class="node"><div class="nt">12:15</div><div class="nc" data-map="https://maps.app.goo.gl/whp4bh3wPjGqeWhN8"><span class="dur">12:15 - 13:30</span><div class="nn">🍳 Early Bird CNX (Tha Phae)</div><div class="nd">爸爸带着两个儿子开的小店，一套餐只要二十多块，柠檬茶60多泰铢。大院子大树下的小房子，环境安静适合拍照。口味淡的要让他少放胡椒和海藻</div><a class="nl" href="http://xhslink.com/o/4UiRtB7gsF2">📕 小红书笔记</a></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc" data-nav="Early Bird CNX (Tha Phae)|||瓦洛洛市场 Warorot Market" style="cursor:pointer">🚶 步行5min / 630m</div></div>
+    <div class="node"><div class="nt">13:35</div><div class="nc" data-map="https://maps.google.com/maps?q=Warorot+Market+Chiang+Mai"><span class="dur">13:35 - 16:00</span><div class="nn">🛒 瓦洛洛市场 Warorot Market</div><div class="nd">最后的采购</div></div></div>
+    <div class="node"><div class="nt">16:00</div><div class="nc"><span class="dur">16:00 - 19:00</span><div class="nn">📌 待安排</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 10min / 3.2km → 回酒店取行李</div></div>
+    <div class="node"><div class="nt">19:10</div><div class="nc"><div class="nn">🏨 回酒店取行李</div></div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc">🚗 20min / 6.1km</div></div>
+    <div class="node"><div class="nt">19:30</div><div class="nc"><div class="nn">✈️ 出发去机场 → 19:50到达</div><div class="nd">⚠️ 提前3小时到机场，预留退税时间</div></div></div>
+    <div class="node"><div class="nt">23:05</div><div class="nc"><span class="dur">23:05 - 04:40+1 · 飞行约4.5h</span><div class="nn">✈️ 清迈 → 北京首都T3</div><div class="nd">CA824</div></div></div>
+  </div></div>
+</div>
+
+<!-- P9: Reminders -->
+<div class="swiper-slide" id="p9">
+  <div class="day-top"><div class="day-ribbon">📌 提醒 & 注意事项</div></div>
+  <div class="ct">
+    <div class="rc"><h3>⏰ 提醒事项</h3>
+      <div class="ri">📱 3/28 — 购买泰国流量卡（7天，每人各一张）</div>
+      <div class="ri">✈️ 4/09 17:45 — CA823 北京→清迈 选座</div>
+      <div class="ri">✈️ 4/16 23:05 — CA824 清迈→北京 选座</div>
+      <div class="ri">🎨 5/01 — 小红书预约 ICE HUB 画丑照大叔（JJ Market）</div>
+      <div class="ri">🎨 5/01 — 预约 White Market 胖胖摊主画画</div>
+    </div>
+    <div class="rc"><h3>⚠️ 注意事项</h3>
+      <div class="ri">📱 去前确认营业：GratefulBest（IG）、Tiny Space（IG @tiny.space.cnx）、YOUNG TILL I DIE（FB）</div>
+      <div class="ri">💰 GratefulBest 一定讲价！</div>
+      <div class="ri">☀️ 防晒霜 + 长袖外套必带</div>
+      <div class="ri">💵 多备小额泰铢现金，90%消费用现金</div>
+      <div class="ri">🛕 进寺庙遮肩膀膝盖、摘帽子墨镜</div>
+    </div>
+    <div class="ft">🐾 by 周大福 · 2026-03-26</div>
+  </div>
+</div>
+</div><!-- end swiper-wrapper -->
+</div><!-- end swiper -->
+
+<div class="nav">
+  <button id="pv" onclick="go(-1)">‹</button>
+  <div class="dots" id="ds"></div>
+  <button id="nx" onclick="go(1)">›</button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+const D=document.getElementById('ds');
+const slides=document.querySelectorAll('.swiper-slide');
+const T=slides.length;
+for(let i=0;i<T;i++){const d=document.createElement('div');d.className='dot'+(i?'':' active');d.onclick=()=>swiper.slideTo(i);D.appendChild(d)}
+
+const swiper=new Swiper('#mySwiper',{
+  direction:'horizontal',
+  speed:350,
+  threshold:30,
+  touchRatio:1,
+  touchStartPreventDefault:false,
+  keyboard:{enabled:true},
+  on:{
+    slideChange:function(){
+      const c=this.activeIndex;
+      D.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===c));
+      document.getElementById('pv').disabled=c===0;
+      document.getElementById('nx').disabled=c===T-1;
+    }
+  }
+});
+
+function go(d){d>0?swiper.slideNext():swiper.slidePrev()}
+let longPressTimer;
+document.addEventListener('touchstart',()=>{longPressTimer=setTimeout(()=>{swiper.allowTouchMove=false},300)},{passive:true});
+document.addEventListener('touchend',()=>{clearTimeout(longPressTimer);setTimeout(()=>{swiper.allowTouchMove=true},100)},{passive:true});
+document.addEventListener('selectionchange',()=>{const sel=window.getSelection();if(sel&&sel.toString().length>0){swiper.allowTouchMove=false}else{swiper.allowTouchMove=true}});
+document.querySelectorAll('.nc[data-map]').forEach(el=>{
+  const btn=document.createElement('a');
+  btn.className='map-btn';
+  btn.textContent='📍 打开地图';
+  const url=el.dataset.map;
+  // Convert maps.google.com URLs to comgooglemaps:// to open app directly
+  if(url.includes('maps.google.com/maps?q=')){
+    const q=url.split('q=')[1];
+    btn.href='comgooglemaps://?q='+q;
+  } else {
+    btn.href=url;
+  }
+  btn.onclick=e=>e.stopPropagation();
+  el.appendChild(btn);
+});
+document.querySelectorAll('[data-nav]').forEach(el=>{
+  el.style.color='#e8985e';
+  el.style.cursor='pointer';
+  el.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    const parts=el.dataset.nav.split('|||');
+    const origin=parts[0].includes('Chiang Mai')?parts[0]:parts[0]+', Chiang Mai';
+    const dest=parts[1].includes('Chiang Mai')?parts[1]:parts[1]+', Chiang Mai';
+    window.location.href='comgooglemaps://?saddr='+encodeURIComponent(origin)+'&daddr='+encodeURIComponent(dest)+'&directionsmode=driving';
+  });
+});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script>
+</body>
+</html>
