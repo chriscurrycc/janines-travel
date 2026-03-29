@@ -25,17 +25,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .nc{background:white;border-radius:12px;padding:12px 14px;box-shadow:0 2px 8px rgba(0,0,0,.04);border:1px solid #e8e4dc;position:relative}
 .nc::before{content:'';position:absolute;left:-20px;top:19px;width:8px;height:8px;border-radius:50%;background:#9aab8a;z-index:1}
 .nn{font-weight:600;font-size:.92em;margin:0 0 1px;background:linear-gradient(transparent 40%,rgba(154,171,138,.25) 40%);display:inline;padding:0 3px}
-.nn-sub{font-size:.7em;color:#a0a090;letter-spacing:1px;margin-bottom:3px;display:block}
+.nn-sub{font-size:.7em;color:#a0a090;letter-spacing:1px;margin-top:4px;margin-bottom:6px;display:block}
 .nd{font-size:.78em;color:#8a8578;line-height:1.5}
 .nd .hl{background:linear-gradient(transparent 60%,#e0ecd0 60%);padding:0 2px}
 .nl{font-size:.76em;color:#9aab8a;text-decoration:none;display:inline-block;margin-top:2px}
-.nc .top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}
-.nc .dur{font-size:.75em;color:#9aab8a;font-weight:600;background:#f0f5ea;padding:2px 8px;border-radius:10px}
+.nc .top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:5px}.nc .top-row .dur{display:inline;margin-bottom:0;width:auto}
+.nc .dur{display:block;font-size:.75em;color:#9aab8a;font-weight:600;background:#f0f5ea;padding:2px 8px;border-radius:10px;margin-bottom:5px;width:fit-content}
 .nc .map-btn{font-size:.68em;color:#9aab8a;background:#f0f5ea;padding:2px 8px;border-radius:8px;cursor:pointer;text-decoration:none}
+.nc>.map-btn{position:absolute;top:10px;right:10px}
 .trv{margin-bottom:4px;margin-top:-8px}
-.trv .nc{background:transparent;border:none;box-shadow:none;padding:8px 0;font-size:.75em;color:#a0a090;text-align:left}
+.trv .nc{background:transparent;border:none;box-shadow:none;padding:8px 0;font-size:.75em;color:#a0a090;text-align:left;display:flex;align-items:center;gap:6px}
+.trv .nc svg{flex-shrink:0;opacity:.7}
 .trv .nc::before{display:none}
 .trv .nt{display:none}
+.nc .tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.nc .tags span{font-size:.65em;padding:2px 6px;border-radius:8px;background:#f0f5ea;color:#7a8a6a}
+.nc .tags span:nth-child(3n+1){background:#e8f0e0;color:#5a7a4a}
+.nc .tags span:nth-child(3n+2){background:#f0e8d8;color:#8a7050}
+.nc .tags span:nth-child(3n+3){background:#dce8f0;color:#4a6a80}
 .ft{text-align:center;padding:20px;color:#ccc;font-size:.75em}
 .back{position:fixed;top:14px;left:14px;width:32px;height:32px;border-radius:50%;background:rgba(245,242,238,.9);border:1px solid #e8e4dc;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:200;text-decoration:none;color:#8a8578;font-size:1.1em}
 .date-nav{position:fixed;top:0;left:0;right:0;background:rgba(245,242,238,.97);border-bottom:1px solid #e8e4dc;z-index:100;backdrop-filter:blur(10px);padding:14px 20px 0}
@@ -54,7 +61,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .date-nav .dn-col.active .dn-date{color:#9aab8a;font-weight:700}
 .date-nav .dn-col.active .dn-day{color:#5a6a50}
 .date-nav .dn-col.active::after{background:#9aab8a}
-.swiper-slide{padding-top:110px}
+.swiper-slide{padding-top:126px}
 </style>
 </head>
 <body>
@@ -78,15 +85,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="swiper-slide" id="p0">
   <div class="ct"><div class="tl">
 
-    <div class="node"><div class="nt">14:30</div><div class="nc"><span class="dur">14:30 - 16:55 · 飞行约2.5h</span><div class="nn">大连 → 首尔仁川</div><div class="nd">抵达后按指引出关，准备乘机场快轨进城</div></div></div>
+    <div class="node"><div class="nt">14:30</div><div class="nc"><span class="dur">14:30 - 16:55 · 飞行约2.5h</span><div class="nn">大连 → 首尔仁川</div><div class="nd">抵达后按指引出关，准备乘机场快轨进城</div><div class="tags"><span>#大连直飞</span><span>#2.5h</span></div></div></div>
 
-    <div class="node trv"><div class="nt"></div><div class="nc">🛂 入关约1小时，预计19:00前出关</div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a0a090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="18" rx="2"/><path d="M2 9h20"/><path d="M9 21V9"/></svg>入关约1小时，预计19:00前出关</div></div>
 
-    <div class="node"><div class="nt">19:00</div><div class="nc" data-map="https://maps.google.com/maps?q=AREX+Seoul+Airport+Railroad"><span class="dur">19:00 - 20:00</span><div class="nn">机场快轨 AREX</div><div class="nn-sub">인천공항 → 서울역</div><div class="nd">仁川机场 → 首尔站，直达约43分钟，票价9,500韩元。在机场地下1层乘坐。</div></div></div>
+    <div class="node"><div class="nt">19:00</div><div class="nc" data-map="https://maps.google.com/maps?q=AREX+Seoul+Airport+Railroad"><span class="dur">19:00 - 20:00</span><div class="nn">机场快轨 AREX</div><div class="nn-sub">인천공항 → 서울역</div><div class="nd">仁川机场 → 首尔站，直达约43分钟，在机场地下1层乘坐。</div><div class="tags"><span>#直达43min</span><span>#₩9,500</span></div></div></div>
 
-    <div class="node"><div class="nt">20:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Seoul+Station+KTX"><span class="dur">20:30 - ~23:00</span><div class="nn">KTX 高铁</div><div class="nn-sub">서울역 → 부산역</div><div class="nd"><span class="hl">4月2日早上6:00记得抢票</span>，20:28发车，约2.5小时到釜山站。票价约60,000韩元。</div></div></div>
+    <div class="node"><div class="nt">20:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Seoul+Station+KTX"><span class="dur">20:30 - ~23:00</span><div class="nn">KTX 高铁</div><div class="nn-sub">서울역 → 부산역</div><div class="nd"><span class="hl">4月2日早上6:00记得抢票</span>，20:28发车，约2.5小时到釜山站。</div><div class="tags"><span>#KTX高速铁路</span><span>#2.5h</span><span>#₩60,000</span></div></div></div>
 
-    <div class="node trv"><div class="nt"></div><div class="nc">🚇 地铁1号线：釜山站 → 西面站，约10分钟</div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a0a090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16"/><path d="M12 3v14"/><path d="M8 21l4-4 4 4"/></svg>地铁1号线：釜山站 → 西面站，约10分钟</div></div>
 
     <div class="node"><div class="nt">23:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Green+B+Hotel+Seomyeon+Busan"><div class="nn">Green B Hotel 西面</div><div class="nn-sub">그린비 호텔 서면</div><div class="nd">入住，休息</div></div></div>
 
@@ -100,21 +107,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
     <div class="node"><div class="nt">09:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Seomyeon+Station+Busan"><span class="dur">09:00 - 09:45</span><div class="nn">西面 → 松亭</div><div class="nn-sub">서면역 → 송정역</div><div class="nd">地铁2号线直达，约42分钟，无需换乘</div></div></div>
 
-    <div class="node"><div class="nt">09:45</div><div class="nc" data-map="https://maps.google.com/maps?q=Songjeong+Beach+Busan"><span class="dur">09:45 - 10:30</span><div class="nn">松亭海水浴场</div><div class="nn-sub">송정해수욕장</div><div class="nd">在松亭海边吃早餐，海边散散步，准备出发乘胶囊小火车</div></div></div>
+    <div class="node"><div class="nt">09:45</div><div class="nc" data-map="https://maps.google.com/maps?q=해운대구+해운대해변로+264+송정"><span class="dur">09:45 - 10:30</span><div class="nn">松亭海水浴场</div><div class="nn-sub">송정해수욕장</div><div class="nd">在松亭海边吃早餐，海边散散步，准备出发乘胶囊小火车</div><div class="tags"><span>#海边早餐</span><span>#散步</span></div></div></div>
 
-    <div class="node"><div class="nt">10:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Haedong+Blue+Line+Park+Songjeong+Busan"><span class="dur">10:30 - 12:00</span><div class="nn">胶囊小火车</div><div class="nn-sub">해운대 블루라인파크</div><div class="nd">松亭站出发 → <span class="hl">清沙浦（拍照打卡 + 网红咖啡馆）</span> → 尾浦站。清沙浦→尾浦段提前网上预约，松亭→清沙浦可现场买票。</div></div></div>
+    <div class="node"><div class="nt">10:30</div><div class="nc" data-map="https://maps.app.goo.gl/4np4niLQKe8hgpfo8"><span class="dur">10:30 - 12:00</span><div class="nn">胶囊小火车</div><div class="nn-sub">해운대 블루라인파크</div><div class="nd">松亭站出发 → <span class="hl">清沙浦（拍照打卡 + 网红咖啡馆）</span> → 尾浦站。清沙浦→尾浦段提前网上预约，松亭→清沙浦可现场买票。</div><div class="tags"><span>#胶囊列车</span><span>#提前预约</span><span>#清沙浦打卡</span></div></div></div>
 
     <div class="node"><div class="nt">12:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Mipo+Haeundae+Busan"><span class="dur">12:00 - 12:30</span><div class="nn">尾浦 → 海云台</div><div class="nn-sub">미포 → 해운대해수욕장</div><div class="nd">从尾浦站步行约15分钟到海云台海水浴场</div></div></div>
 
     <div class="node"><div class="nt">12:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Haeundae+Beach+Busan"><span class="dur">12:30 - 14:00</span><div class="nn">海云台午餐</div><div class="nn-sub">해운대 맛집</div><div class="nd">海云台附近找海鲜餐厅，推荐刀鱼汤饭或海鲜锅</div></div></div>
 
-    <div class="node"><div class="nt">14:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Haeundae+Beach+Busan"><span class="dur">14:00 - 17:30</span><div class="nn">海云台海水浴场</div><div class="nn-sub">해운대해수욕장</div><div class="nd">海边漫步、<span class="hl">喂海鸥</span>、感受釜山海风，自由活动</div></div></div>
+    <div class="node"><div class="nt">14:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Haeundae+Beach+Busan"><span class="dur">14:00 - 17:30</span><div class="nn">海云台海水浴场</div><div class="nn-sub">해운대해수욕장</div><div class="nd">海边漫步、<span class="hl">喂海鸥</span>、感受釜山海风，自由活动</div><div class="tags"><span>#喂海鸥</span><span>#海边漫步</span></div></div></div>
 
     <div class="node"><div class="nt">17:30</div><div class="nc" data-map="https://maps.google.com/maps?q=Haeundae+seafood+restaurant+Busan"><span class="dur">17:30 - 18:30</span><div class="nn">海云台附近晚餐</div><div class="nd">在海云台附近吃晚饭，之后打车去游艇码头</div></div></div>
 
-    <div class="node"><div class="nt">19:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Suyeongman+Yacht+Marina+Busan"><span class="dur">19:00 - 20:00 · 约1小时</span><div class="nn">Yacht G 游艇出海</div><div class="nn-sub">수영만 요트경기장</div><div class="nd">水营湾游艇码头出发，<span class="hl">欣赏夕阳 + 广安大桥夜景</span>。路线：海云台 → 冬柏岛 → 广安大桥 → 广安里海水浴场。含饮料、小饼干、一次性雨衣。小红书搜「Yacht G 釜山」预约，<span class="hl">建议提前半个月</span>。</div><a class="nl" href="https://www.xiaohongshu.com" target="_blank">小红书预约 →</a></div></div>
+    <div class="node"><div class="nt">19:00</div><div class="nc" data-map="https://maps.google.com/maps?q=Suyeongman+Yacht+Marina+Busan"><span class="dur">19:00 - 20:00 · 约1小时</span><div class="nn">Yacht G 游艇出海</div><div class="nn-sub">수영만 요트경기장</div><div class="nd">水营湾游艇码头出发，<span class="hl">欣赏夕阳 + 广安大桥夜景</span>。路线：海云台 → 冬柏岛 → 广安大桥 → 广安里海水浴场。含饮料、小饼干、一次性雨衣。</div><div class="tags"><span>#日落游艇</span><span>#广安大桥夜景</span><span>#提前半月预约</span></div><a class="nl" href="https://www.xiaohongshu.com" target="_blank">小红书预约 →</a></div></div>
 
-    <div class="node trv"><div class="nt"></div><div class="nc">周六晚9点广安里可能有无人机表演，看完后打车/地铁回西面酒店</div></div>
+    <div class="node trv"><div class="nt"></div><div class="nc"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a0a090" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-3H7L5 10l-2.5 1.1C1.7 11.3 1 12.1 1 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>打车/地铁回西面酒店<span style="display:inline-flex;gap:4px;margin-left:6px"><span style="font-size:.9em;padding:1px 5px;border-radius:6px;background:#dce8f0;color:#4a6a80">#周六21:00广安里无人机表演</span></span></div></div>
 
     <div class="ft">Day 2 · 东海岸一日</div>
   </div></div>
